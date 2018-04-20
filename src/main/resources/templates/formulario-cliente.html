@@ -18,7 +18,8 @@
 		<p>Numero de documento: <input type="text" th:field="*{numeroDocumento}"/></p>
 		<p th:if="${#fields.hasErrors('numeroDocumento')}" th:errors="*{numeroDocumento}"></p>
 		<br>
-		<p><input type="submit" value="Guardar cliente"/></p>
+		<p><input type="submit" value="Guardar cambios" th:if="${cliente.id > 0}"/></p>
+		<p><input type="submit" value="Crear cliente" th:if="${cliente.id == 0}"/></p>
 	</form>
 </body>
 </html>
