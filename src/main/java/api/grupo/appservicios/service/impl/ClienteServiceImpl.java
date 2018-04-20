@@ -46,7 +46,8 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public void baja(long id) {
-		clienteDAO.deleteById(id);		
+		if (clienteDAO.existsById(id))
+			clienteDAO.deleteById(id);		
 	}
 
 }

@@ -70,12 +70,9 @@ public class ClienteController {
 	
 	@GetMapping("/formulario")
 	public String mostrarFormularioCliente(@RequestParam(value="id", defaultValue="0", required=false) long id, Model modelo) {
-		ClienteDTO cliente;
-		if (id == 0)
-			cliente = new ClienteDTO();
-		else {
-			cliente = clienteService.buscarCliente(id);
-		}	
+		ClienteDTO cliente = clienteService.buscarCliente(id);
+		if (cliente == null)
+			cliente = new ClienteDTO();	
 		modelo.addAttribute("cliente", cliente);
 		
 		return FORMULARIO_GUARDAR_CLIENTE;
