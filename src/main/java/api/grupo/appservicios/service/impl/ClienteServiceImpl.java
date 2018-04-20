@@ -44,4 +44,9 @@ public class ClienteServiceImpl implements ClienteService {
 		return ClienteConverter.modelToDTO(cliente);
 	}
 
+	@Override
+	public void baja(long id) {
+		clienteDAO.deleteById(id);		
+	}
+
 }

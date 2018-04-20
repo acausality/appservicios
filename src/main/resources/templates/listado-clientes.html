@@ -7,14 +7,17 @@
 <body>
 	<h1>Clientes</h1>
 	<br><br><hr><br>
-	<table>
+	<table border="1">
 		<tr>
+			<th>Acciones</th>
 			<th>Nombre</th>
 			<th>Apellido</th>
 			<th>Documento</th>
 		</tr>
 		<tr th:each="cliente:${clientes}">
-			<td><a th:href="@{/clientes/formulario(id=${cliente.id})}" th:text="${cliente.nombre}"></a></td>
+			<td><a th:href="@{/clientes/baja(id=${cliente.id})}"
+					onclick="if (!(confirm('Est&aacute; seguro de que desea eliminar el cliente?'))) return false">
+				Eliminar</a> | <a th:href="@{/clientes/formulario(id=${cliente.id})}">Editar</a></td>
 			<td><span th:text="${cliente.nombre}"></span></td>
 			<td><span th:text="${cliente.apellido}"></span></td>
 			<td><span th:text="${cliente.tipoDocumento}"></span> <span th:text="${cliente.numeroDocumento}"></span></td>

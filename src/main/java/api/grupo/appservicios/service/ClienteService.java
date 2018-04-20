@@ -13,4 +13,6 @@ public interface ClienteService {
 	void guardarCliente(@Valid ClienteDTO cliente);
 
 	ClienteDTO buscarCliente(long id);
+
+	void baja(long id);
 }

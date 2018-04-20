@@ -80,5 +80,14 @@ public class ClienteController {
 		
 		return FORMULARIO_GUARDAR_CLIENTE;
 	}
+	
+	@GetMapping("/baja")
+	public String bajaCliente(@RequestParam(value="id", required=true) long id) {
+		ClienteDTO cliente;
+		if (id > 0)
+			clienteService.baja(id);
+		
+		return LISTA_CLIENTES;
+	}
 
 }
