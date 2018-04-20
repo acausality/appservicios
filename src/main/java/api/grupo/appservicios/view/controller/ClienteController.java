@@ -87,7 +87,7 @@ public class ClienteController {
 		if (id > 0)
 			clienteService.baja(id);
 		
-		return LISTA_CLIENTES;
+		return "redirect:/clientes/listar";
 	}
 
 }
