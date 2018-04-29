@@ -11,22 +11,23 @@ public class ClienteDTO {
 	private long id;
 
 	@NotNull
-	@Size(min=3, max=50)
+	@Size(min = 3, max = 50)
 	private String nombre;
 
 	@NotNull
-	@Size(min=3, max=50)
+	@Size(min = 3, max = 50)
 	private String apellido;
 
 	@NotNull
-	@Size(max=50)
+	@Size(max = 50)
 	private String tipoDocumento;
 
 	@NotNull
-	@Size(max=50)
+	@Size(max = 50)
 	private String numeroDocumento;
-	
-	public ClienteDTO() {}
+
+	public ClienteDTO() {
+	}
 
 	public ClienteDTO(@NotNull @Min(0) long id, @NotNull @Size(min = 3, max = 50) String nombre,
 			@NotNull @Size(min = 3, max = 50) String apellido, @NotNull @Size(max = 50) String tipoDocumento,
@@ -78,6 +79,5 @@ public class ClienteDTO {
 	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
-	
-	
+
 }

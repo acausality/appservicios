@@ -1,11 +1,11 @@
-package api.grupo.appservicios.data.dao;
+package api.grupo.appservicios.data.repository;
 
 import java.io.Serializable;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import api.grupo.appservicios.model.Cliente;
+import api.grupo.appservicios.model.entity.Cliente;
 
 //momentaneamente lo hacemos asi, automaticamente se va a generar el codigo necesario para hacer los queries con esto 
 @Repository

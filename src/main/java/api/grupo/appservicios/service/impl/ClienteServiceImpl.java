@@ -8,10 +8,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import api.grupo.appservicios.data.dao.ClienteDAO;
-import api.grupo.appservicios.model.Cliente;
+import api.grupo.appservicios.data.repository.ClienteDAO;
 import api.grupo.appservicios.model.converter.ClienteConverter;
 import api.grupo.appservicios.model.dto.ClienteDTO;
+import api.grupo.appservicios.model.entity.Cliente;
 import api.grupo.appservicios.service.ClienteService;
 
 @Service
