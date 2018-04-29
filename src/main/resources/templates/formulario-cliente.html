@@ -2,24 +2,115 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link href="/fontawesome/css/fontawesome-all.css" rel="stylesheet">
 <title>Formulario de alta/modificaci&oacute;n de clientes</title>
+
+<script src="/jquery/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1>Clientes</h1>
-	<hr><br>
-	<form action="#" th:action="@{/clientes/guardar}" th:object="${cliente}" method="POST">
-		<input type="hidden" th:field="*{id}"/>
-		<p>Nombre: <input type="text" th:field="*{nombre}"/></p>
-		<p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
-		<p>Apellido: <input type="text" th:field="*{apellido}"/></p>
-		<p th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></p>
-		<p>Tipo de documento: <input type="text" th:field="*{tipoDocumento}"/></p>
-		<p th:if="${#fields.hasErrors('tipoDocumento')}" th:errors="*{tipoDocumento}"></p>
-		<p>Numero de documento: <input type="text" th:field="*{numeroDocumento}"/></p>
-		<p th:if="${#fields.hasErrors('numeroDocumento')}" th:errors="*{numeroDocumento}"></p>
-		<br>
-		<p><input type="submit" value="Guardar cambios" th:if="${cliente.id > 0}"/></p>
-		<p><input type="submit" value="Crear cliente" th:if="${cliente.id == 0}"/></p>
-	</form>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8">
+				<i class="fas fa-user-plus"></i>
+				<h1>Clientes</h1>
+				<hr>
+				<br>
+				<form class="needs-validation" novalidate action="#"
+					th:action="@{/clientes/guardar}" th:object="${cliente}"
+					method="POST">
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-md-5 mb-3">
+								<input type="hidden" th:field="*{id}" /> <label
+									for="validationName">Nombre</label> <input type="text"
+									class="form-control" id="validationName" th:field="*{nombre}"
+									aria-describedby="emailHelp" placeholder="Nombre" required>
+
+								<div class="invalid-feedback">
+									El nombre contiene errores <span
+										th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+								</div>
+								<div class="valid-feedback">Se ve bien!</div>
+							</div>
+							<div class="col-md-5 mb-3">
+								<label for="validationSurname">Apellido</label> <input
+									type="text" class="form-control" id="validationSurname"
+									th:field="*{nombre}" aria-describedby="emailHelp"
+									placeholder="Apellido" required>
+
+								<div class="invalid-feedback">
+									El apellido contiene errores <span
+										th:if="${#fields.hasErrors('apellido')}"
+										th:errors="*{apellido}"></span>
+								</div>
+								<div class="valid-feedback">Se ve bien!</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-5 mb-3">
+								<label for="validationTipeDoc">Tipo de documento:</label> <input
+									type="text" class="form-control" id="validationTipeDoc"
+									th:field="*{tipoDocumento}" aria-describedby="emailHelp"
+									placeholder="Tipo Doc." required>
+
+								<div class="invalid-feedback">
+									El Tipo de Documento contiene errores <span
+										th:if="${#fields.hasErrors('tipoDocumento')}"
+										th:errors="*{tipoDocumento}"></span>
+								</div>
+								<div class="valid-feedback">Se ve bien!</div>
+							</div>
+
+							<div class="col-md-5 mb-3">
+								<label for="validationNumDoc">Numero de documento:</label> <input
+									type="text" class="form-control" id="validationNumDoc"
+									th:field="*{numeroDocumento}" aria-describedby="emailHelp"
+									placeholder="Tipo Doc." required>
+
+								<div class="invalid-feedback">
+									El número de Documento contiene errores <span
+										th:if="${#fields.hasErrors('numeroDocumento')}"
+										th:errors="*{numeroDocumento}"></span>
+								</div>
+								<div class="valid-feedback">Se ve bien!</div>
+							</div>
+						</div>
+
+						<div class="col-md-2 mb-2">
+							<button class="btn btn-primary" type="submit"
+								th:if="${cliente.id > 0}">Guardar cambios</button>
+							<button class="btn btn-primary" type="submit"
+								th:if="${cliente.id == 0}">Crear Cliente</button>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		// JavaScript for disabling form submissions if there are invalid fields
+		(function() {
+			'use strict';
+			window.addEventListener('load',
+					function() {
+						// Fetch all the forms we want to apply custom Bootstrap validation styles to
+						var forms = document
+								.getElementsByClassName('needs-validation');
+						// Loop over them and prevent submission
+						var validation = Array.prototype.filter.call(forms,
+								function(form) {
+									form.addEventListener('submit', function(
+											event) {
+										if (form.checkValidity() === false) {
+											event.preventDefault();
+											event.stopPropagation();
+										}
+										form.classList.add('was-validated');
+									}, false);
+								});
+					}, false);
+		})();
+	</script>
 </body>
 </html>
