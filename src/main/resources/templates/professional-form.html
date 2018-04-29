@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Formulario</title>
+</head>
+<body>
+	<form action="#" th:action="@{/professionals/add}" th:object="${professional}" method="post">
+	<input type="hidden" th:field="*{id}"/>
+		<fieldset>
+			<legend>Datos del profesional</legend>
+				<p>Nombre: <input type="text" th:field="*{name}"/></p>
+				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+				<p>Apellido: <input type="text" th:field="*{surname}"/></p>
+				<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+				<p>Tipo de documento: <input type="text" th:field="*{identityType}"/></p>
+				<p th:if="${#fields.hasErrors('identityType')}" th:errors="*{identityType}"></p>
+				<p>Número de documento: <input type="text" th:field="*{identityNumber}"/></p>
+				<p th:if="${#fields.hasErrors('identityNumber')}" th:errors="*{identityNumber}"></p>
+				<p>Dirección: <input type="text" th:field="*{address}"/></p>
+				<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+				<p>Número de teléfono: <input type="text" th:field="*{phoneNumber}"/></p>
+				<p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
+				<p>Email: <input type="text" th:field="*{email}"/></p>
+				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+			<p><input type="submit" value="Confirmar" th:if="${professional.identityNumber == null}"/></p>
+			<p><input type="submit" value="Guardar cambios" th:if="${professional.identityNumber != null}"/></p>
+		</fieldset>
+	</form>
+</body>
+</html>
