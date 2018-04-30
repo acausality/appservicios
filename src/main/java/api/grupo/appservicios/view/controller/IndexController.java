@@ -27,7 +27,7 @@ public class IndexController {
 
 	@RequestMapping("/index")
 	public String index () {
-	logger.info("Dentro de index");
+	logger.info("Inside index");
 		return INDEX;
 	}
 

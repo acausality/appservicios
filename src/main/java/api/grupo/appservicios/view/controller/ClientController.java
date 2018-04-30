@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import api.grupo.appservicios.model.dto.ClienteDTO;
-import api.grupo.appservicios.service.ClienteService;
+import api.grupo.appservicios.model.dto.ClientDTO;
+import api.grupo.appservicios.service.ClientService;
 
 @Controller
-@RequestMapping("/clientes")
-public class ClienteController {
+@RequestMapping("/clients")
+public class ClientController {
 	// constantes para los nombres de los templates
-	private static final String LISTA_CLIENTES = "listado-clientes";
-	private static final String FORMULARIO_GUARDAR_CLIENTE = "formulario-cliente";
+	private static final String LIST_CLIENTS = "list-clients";
+	private static final String SAVE_CLIENT_FORM = "client-form";
 
-	private Log logger = LogFactory.getLog(ClienteController.class);
+	private Log logger = LogFactory.getLog(ClientController.class);
 
 	@Autowired
-	private ClienteService clienteService;
+	private ClientService clientService;
 
 	/*
 	 * esto se va a usar para parte de la validacion. Cuando se recibe un string,
@@ -45,46 +45,46 @@ public class ClienteController {
 	}
 
 	// muestra un listado con todos los clientes
-	@GetMapping("/listar")
-	public String listarClientes(Model modelo) {
-		logger.info("Dentro de listarClientes");
-		modelo.addAttribute("clientes", clienteService.listarClientes());
+	@GetMapping("/list")
+	public String listClients(Model model) {
+		logger.info("Inside listClients");
+		model.addAttribute("clients", clientService.listClients());
 
-		return LISTA_CLIENTES;
+		return LIST_CLIENTS;
 	}
 
-	@PostMapping("/guardar")
-	public String guardarCliente(@Valid @ModelAttribute("cliente") ClienteDTO cliente, BindingResult bindingResult) {
-		logger.info("Dentro de guardarClientes. Recibido: " + cliente);
+	@PostMapping("/save")
+	public String saveClient(@Valid @ModelAttribute("client") ClientDTO client, BindingResult bindingResult) {
+		logger.info("Inside saveClient. Received: " + client);
 		if (!bindingResult.hasErrors()) {
-			clienteService.guardarCliente(cliente);
+			clientService.saveClient(client);
 
-			return "redirect:/clientes/listar";
+			return "redirect:/clients/list";
 		} else {
-			logger.error("Error al validar cliente: " + cliente);
+			logger.error("Failed to validate client: " + client);
 			logger.error(bindingResult.toString());
 
-			return FORMULARIO_GUARDAR_CLIENTE;
+			return SAVE_CLIENT_FORM;
 		}
 	}
-	
-	@GetMapping("/formulario")
-	public String mostrarFormularioCliente(@RequestParam(value="id", defaultValue="0", required=false) long id, Model modelo) {
-		ClienteDTO cliente = clienteService.buscarCliente(id);
-		if (cliente == null)
-			cliente = new ClienteDTO();	
-		modelo.addAttribute("cliente", cliente);
-		
-		return FORMULARIO_GUARDAR_CLIENTE;
+
+	@GetMapping("/form")
+	public String showClientForm(@RequestParam(value = "id", defaultValue = "0", required = false) long id,
+			Model model) {
+		ClientDTO client = clientService.findClient(id);
+		if (client == null)
+			client = new ClientDTO();
+		model.addAttribute("client", client);
+
+		return SAVE_CLIENT_FORM;
 	}
-	
-	@GetMapping("/baja")
-	public String bajaCliente(@RequestParam(value="id", required=true) long id) {
-		ClienteDTO cliente;
+
+	@GetMapping("/remove")
+	public String removeClient(@RequestParam(value = "id", required = true) long id) {
 		if (id > 0)
-			clienteService.baja(id);
-		
-		return "redirect:/clientes/listar";
+			clientService.removeClient(id);
+
+		return "redirect:/clients/list";
 	}
 
 }
