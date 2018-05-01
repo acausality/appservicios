@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Formulario de alta/modificaci&oacute;n de clientes</title>
+<meta charset="UTF-8">
+<title>Formulario de alta/modificaión de clientes</title>
 </head>
 <body>
-	<h1>Clientes</h1>
-	<hr><br>
-	<form action="#" th:action="@{/clientes/guardar}" th:object="${cliente}" method="POST">
-		<input type="hidden" th:field="*{id}"/>
-		<p>Nombre: <input type="text" th:field="*{nombre}"/></p>
-		<p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
-		<p>Apellido: <input type="text" th:field="*{apellido}"/></p>
-		<p th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></p>
-		<p>Tipo de documento: <input type="text" th:field="*{tipoDocumento}"/></p>
-		<p th:if="${#fields.hasErrors('tipoDocumento')}" th:errors="*{tipoDocumento}"></p>
-		<p>Numero de documento: <input type="text" th:field="*{numeroDocumento}"/></p>
-		<p th:if="${#fields.hasErrors('numeroDocumento')}" th:errors="*{numeroDocumento}"></p>
-		<br>
-		<p><input type="submit" value="Guardar cambios" th:if="${cliente.id > 0}"/></p>
-		<p><input type="submit" value="Crear cliente" th:if="${cliente.id == 0}"/></p>
+	<form action="#" th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
+	<input type="hidden" th:field="*{id}"/>
+		<fieldset>
+			<legend>Datos del cliente</legend>
+			<p th:if="${#fields.errors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"></p>
+		
+			<p>Nombre: <input type="text" th:field="*{name}"/></p>
+			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+			<p>Apellido: <input type="text" th:field="*{surname}"/></p>
+			<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+			<p>Tipo de documento: <input type="text" th:field="*{identityType}"/></p>
+			<p th:if="${#fields.hasErrors('identityType')}" th:errors="*{identityType}"></p>
+			<p>Número de documento: <input type="text" th:field="*{identityNumber}"/></p>
+			<p th:if="${#fields.hasErrors('identityNumber')}" th:errors="*{identityNumber}"></p>
+			<p>Dirección: <input type="text" th:field="*{address}"/></p>
+			<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+			<p>Número de teléfono: <input type="text" th:field="*{phoneNumber}"/></p>
+			<p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
+			<p>Email: <input type="text" th:field="*{email}"/></p>
+			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+				
+			<p><input type="submit" value="Guardar cambios" th:if="${cliente.id > 0}"/></p>
+			<p><input type="submit" value="Confirmar" th:if="${cliente.id == 0}"/></p>
+		</fieldset>
 	</form>
 </body>
 </html>

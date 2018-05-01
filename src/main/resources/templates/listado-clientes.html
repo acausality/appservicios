@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Listado de clientes</title>
 </head>
 <body>
 	<h1>Clientes</h1>
-	<br><br><hr><br>
-	<table border="1">
+
+	<table>
 		<tr>
-			<th>Acciones</th>
+			<th>Acción</th>
 			<th>Nombre</th>
 			<th>Apellido</th>
-			<th>Documento</th>
+			<th>Tipo de documento</th>
+			<th>Número de documento</th>
+			<th>Dirección</th>
+			<th>Número de teléfono</th>
+			<th>Email</th>
 		</tr>
-		<tr th:each="cliente:${clientes}">
-			<td><a th:href="@{/clientes/baja(id=${cliente.id})}"
-					onclick="if (!(confirm('Est&aacute; seguro de que desea eliminar el cliente?'))) return false">
-				Eliminar</a> | <a th:href="@{/clientes/formulario(id=${cliente.id})}">Editar</a></td>
-			<td><span th:text="${cliente.nombre}"></span></td>
-			<td><span th:text="${cliente.apellido}"></span></td>
-			<td><span th:text="${cliente.tipoDocumento}"></span> <span th:text="${cliente.numeroDocumento}"></span></td>
+		<tr th:each="cliente : ${clientes}">
+			<td><a th:href="@{/clientes/formulario(id=${cliente.id})}">Editar</a> | 
+			<a th:href="@{/clientes/baja(id=${cliente.id})}"
+					onclick="if (!(confirm('Está seguro de que desea eliminar el cliente?'))) return false">
+				Eliminar</a></td>
+			<td><span th:text="${cliente.name}"></span></td>
+			<td><span th:text="${cliente.surname}"></span></td>
+			<td><span th:text="${cliente.identityType}"></span></td>
+			<td><span th:text="${cliente.identityNumber}"></span></td>
+			<td><span th:text="${cliente.address}"></span></td>
+			<td><span th:text="${cliente.phoneNumber}"></span></td>
+			<td><span th:text="${cliente.email}"></span></td>
 		</tr>
 	</table>
-	<br><br><hr><br>
-	<a th:href="@{/clientes/formulario}">Crear cliente</a>
+	<a href="/clientes/formulario">
+		</br><input type="button" value="Nuevo" />
+	</a>
+
 </body>
 </html>

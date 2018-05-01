@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,7 +58,13 @@ public class ClienteController {
 	public String guardarCliente(@Valid @ModelAttribute("cliente") ClienteDTO cliente, BindingResult bindingResult) {
 		logger.info("Dentro de guardarClientes. Recibido: " + cliente);
 		if (!bindingResult.hasErrors()) {
-			clienteService.guardarCliente(cliente);
+			try { // no es lo más conveniente
+				clienteService.guardarCliente(cliente);
+			} catch (DataIntegrityViolationException e) {
+				bindingResult.reject("",
+						"El tipo y número de documento y/o email ya están registrados en otro cliente");
+				return FORMULARIO_GUARDAR_CLIENTE;
+			}
 
 			return "redirect:/clientes/listar";
 		} else {

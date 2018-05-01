@@ -1,6 +1,7 @@
 package api.grupo.appservicios.model.dto;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -9,35 +10,44 @@ public class ClienteDTO {
 	@NotNull
 	@Min(0)
 	private long id;
-
-	@NotNull
+	@NotBlank
 	@Size(min = 3, max = 50)
-	private String nombre;
-
-	@NotNull
+	private String name;
+	@NotBlank
 	@Size(min = 3, max = 50)
-	private String apellido;
-
-	@NotNull
+	private String surname;
+	@NotBlank
 	@Size(max = 50)
-	private String tipoDocumento;
+	private String identityType;
+	@NotBlank
+	@Size(min = 6, max = 50)
+	private String identityNumber;
+	@NotBlank
+	@Size(min = 3, max = 50)
+	private String address;
+	@NotBlank
+	@Size(min = 6, max = 50)
+	private String phoneNumber;
+	@NotBlank
+	@Size(min = 7, max = 50)
+	private String email;
 
-	@NotNull
-	@Size(max = 50)
-	private String numeroDocumento;
-
-	public ClienteDTO() {
-	}
-
-	public ClienteDTO(@NotNull @Min(0) long id, @NotNull @Size(min = 3, max = 50) String nombre,
-			@NotNull @Size(min = 3, max = 50) String apellido, @NotNull @Size(max = 50) String tipoDocumento,
-			@NotNull @Size(max = 50) String numeroDocumento) {
+	public ClienteDTO(@NotNull @Min(0) long id, @NotBlank @Size(min = 3, max = 50) String name,
+			@NotBlank @Size(min = 3, max = 50) String surname, @NotBlank @Size(max = 50) String identityType,
+			@NotBlank @Size(min = 6, max = 50) String identityNumber, @NotBlank @Size(min = 3, max = 50) String address,
+			@NotBlank @Size(min = 6, max = 50) String phoneNumber, @NotBlank @Size(min = 7, max = 50) String email) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.tipoDocumento = tipoDocumento;
-		this.numeroDocumento = numeroDocumento;
+		this.name = name;
+		this.surname = surname;
+		this.identityType = identityType;
+		this.identityNumber = identityNumber;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+	}
+
+	public ClienteDTO() {
 	}
 
 	public long getId() {
@@ -48,36 +58,60 @@ public class ClienteDTO {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getApellido() {
-		return apellido;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
-	public String getTipoDocumento() {
-		return tipoDocumento;
+	public String getIdentityType() {
+		return identityType;
 	}
 
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
+	public void setIdentityType(String identityType) {
+		this.identityType = identityType;
 	}
 
-	public String getNumeroDocumento() {
-		return numeroDocumento;
+	public String getIdentityNumber() {
+		return identityNumber;
 	}
 
-	public void setNumeroDocumento(String numeroDocumento) {
-		this.numeroDocumento = numeroDocumento;
+	public void setIdentityNumber(String identityNumber) {
+		this.identityNumber = identityNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

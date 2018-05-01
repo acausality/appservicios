@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,11 +40,8 @@ public class ProfessionalController {
 	public String showProfessionalForm(@RequestParam(value = "id", defaultValue = "0", required = false) long id,
 			Model model) {
 		ProfessionalDTO professionalDTO = professionalService.findProfessional(id);
-		if (professionalDTO == null) {
-			LOG.info("DENTRO DE FORM. NO ENCONTRE EL ID: " + id);
+		if (professionalDTO == null)
 			professionalDTO = new ProfessionalDTO();
-		}
-		LOG.info("DENTRO DE FORM. ENCONTRADO: " + professionalDTO);
 		model.addAttribute("professional", professionalDTO);
 		return PROFESSIONAL_FORM;
 	}
@@ -51,15 +49,21 @@ public class ProfessionalController {
 	@PostMapping("/add")
 	public String addProfessional(@Valid @ModelAttribute("professional") ProfessionalDTO professionalDTO,
 			BindingResult bindingResult) {
-		LOG.info("DENTRO DE ADD. RECIBIDO: " + professionalDTO);
 		if (bindingResult.hasErrors()) {
+			LOG.info("Result: " + bindingResult.toString());
 			return PROFESSIONAL_FORM;
 		} else {
-			professionalService.addProfessional(professionalDTO);
+			try { // no es lo más conveniente
+				professionalService.addProfessional(professionalDTO);
+			} catch (DataIntegrityViolationException e) {
+				bindingResult.reject("",
+						"El tipo y número de documento y/o email ya están registrados en otro profesional");
+				return PROFESSIONAL_FORM;
+			}
 			return "professional-form-result"; // en realidad tendría que ser un mensaje en la misma página
 		}
 	}
-	
+
 	@GetMapping("/delete")
 	public String deleteProfessional(@RequestParam(value = "id", required = true) long id) {
 		professionalService.removeProfessional(id);

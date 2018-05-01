@@ -9,7 +9,10 @@ import api.grupo.appservicios.model.entity.Professional;
 
 @Repository
 public interface ProfessionalDAO extends JpaRepository<Professional, Serializable> {
-	
+
 	public abstract Professional findById(long id);
+
 	public abstract Professional findByIdentityTypeAndIdentityNumber(String identityType, String identityNumber);
+
+	public abstract Professional findByEmail(String email);
 }

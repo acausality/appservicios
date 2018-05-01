@@ -6,11 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import api.grupo.appservicios.model.Person;
 
 @Entity
-@Table(name = "professionals")
+@Table(name = "professionals", uniqueConstraints = {@UniqueConstraint(columnNames = {"identity_type", "identity_number"}), @UniqueConstraint(columnNames = "email")})
 public class Professional extends Person {
 
 	@Id
