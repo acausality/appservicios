@@ -1,8 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i');
+@import
+	url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i')
+	;
 
 body {
 	font-family: 'Open Sans';
 }
+
 .invalid-feedback-backend {
 	width: 100%;
 	margin-top: .25rem;
@@ -13,9 +16,29 @@ body {
 .formulario {
 	color: #555;
 }
+
 .formulario h2 {
 	color: steelblue;
 	padding-top: 0.5em;
 }
 
-<!-- #007bff -->
+.formulario th {
+	font-weight: 500;
+}
+
+.formulario td.action a i {
+	color: steelblue;
+	padding: 5px;
+}
+
+.formulario td.action a i.fas.fa-trash-alt {
+	color: red;
+}
+
+.formulario td.action a i.fas.fa-edit {
+	color: green;
+}
+<!--
+#007bff
+ 
+-->
