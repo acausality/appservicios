@@ -6,6 +6,20 @@ body {
 	font-family: 'Open Sans';
 }
 
+.container.content {
+	min-height: 500px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+.container-fluid.navbar.background-color {
+	background-color: #3F729B;
+}
+
+.navbar .navbar-expand-lg .navbar-dark .primary-color {
+	background-color: #3F729B;
+}
+
 .invalid-feedback-backend {
 	width: 100%;
 	margin-top: .25rem;
@@ -38,7 +52,48 @@ body {
 .formulario td.action a i.fas.fa-edit {
 	color: green;
 }
+
+.btn-card {
+	margin: 5px;
+}
+
+footer.page-footer.font-small.unique-color-dark.pt-0 {
+	background-color: #1C2331;
+	color: #cecece;
+}
+
+.top-footer {
+	background-color: #3F729B
+}
 <!--
-#007bff
+unique-color
+
+
+:
+
  
+
+#3F729B
+
+
+  
+
+unique-color-dark
+
+
+:
+
+ 
+
+#1C2331
+
+
+
+
+#007bff
+
+
+ 
+
+
 -->

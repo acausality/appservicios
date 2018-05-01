@@ -11,7 +11,9 @@
 <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<!-- Navbar -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container content">
 		<div class="formulario">
 			<div class="row">
 				<div class="col-sm-8">
@@ -31,13 +33,12 @@
 						<tbody>
 							<tr th:each="client:${clients}">
 								<th scope="row"><span th:text="${client.id}"></span></th>
-								<td class="action">
-								  <a th:href="@{/clients/remove(id=${client.id})}"
+								<td class="action"><a
+									th:href="@{/clients/remove(id=${client.id})}"
 									onclick="if (!(confirm('Está seguro de que desea eliminar el cliente?'))) return false">
-									<i class="fas fa-trash-alt" title="eliminar"></i></a>
-									<a th:href="@{/clients/form(id=${client.id})}">
-									<i class="fas fa-edit" title="editar"></i></a>
-									</td>
+										<i class="fas fa-trash-alt" title="eliminar"></i>
+								</a> <a th:href="@{/clients/form(id=${client.id})}"> <i
+										class="fas fa-edit" title="editar"></i></a></td>
 								<td><span th:text="${client.firstName}"></span></td>
 								<td><span th:text="${client.lastName}"></span></td>
 								<td><span th:text="${client.identityType}"></span>: <span
@@ -48,5 +49,11 @@
 					<a class="btn btn-primary" role="button" th:href="@{/clients/form}">
 						<i class="fas fa-user-plus"></i> Crear cliente
 					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

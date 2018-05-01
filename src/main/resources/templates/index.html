@@ -1,28 +1,123 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link href="/fontawesome/css/fontawesome-all.css" rel="stylesheet">
+<link href="/css/appservices.css" rel="stylesheet">
 <title>App Servicios</title>
+
+<script src="/jquery/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1>App Servicios</h1>
-	<br><br><hr><br>
-	
-	<!-- . -->
-	<h2>Clientes</h2>
-	<ul>
-		<li><a th:href="@{/clients/list}">Ver clientes</a></li>
-		<li><a th:href="@{/clients/form}">Agregar cliente</a></li>
-	</ul>
-	
-	<br><br><hr><br>
+	<!-- Navbar -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container content">
+		<!-- Card deck -->
+		<div class="card-deck">
 
-	<h2>Profesionales</h2>
-	<ul>
-	<li><a th:href="@{/profesionales/listar}">Ver profesionales</a></li>
-	<li><a th:href="@{/profesionales/formulario}">Agregar profesional</a></li>
-	</ul>
-	<br><br><hr><br>
+			<!-- Card -->
+			<div class="card mb-4">
 
+				<!--Card image-->
+				<div class="view overlay">
+					<img class="card-img-top"
+						src="https://mdbootstrap.com/img/Photos/Others/images/51.jpg"
+						alt="Card image cap"> <a href="#!">
+						<div class="mask rgba-white-slight"></div>
+					</a>
+				</div>
+
+				<!--Card content-->
+				<div class="card-body">
+
+					<!--Title-->
+					<h4 class="card-title">Clientes</h4>
+					<!--Text-->
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p>
+					<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+					<a th:href="@{/clients/list}">
+						<button type="button" class="btn btn-light-blue btn-md btn-card">Clientes</button>
+					</a>
+					<a th:href="@{/clients/form}">
+						<button type="button" class="btn btn-light-blue btn-md btn-card">Agregar Cliente</button>
+					</a>
+
+				</div>
+
+			</div>
+			<!-- Card -->
+
+			<!-- Card -->
+			<div class="card mb-4">
+
+				<!--Card image-->
+				<div class="view overlay">
+					<img class="card-img-top"
+						src="https://mdbootstrap.com/img/Photos/Others/images/3.jpg"
+						alt="Card image cap"> <a href="#!">
+						<div class="mask rgba-white-slight"></div>
+					</a>
+				</div>
+
+				<!--Card content-->
+				<div class="card-body">
+
+					<!--Title-->
+					<h4 class="card-title">Profesionales</h4>
+					<!--Text-->
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p>
+					<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+					<a th:href="@{/profesionales/list}">
+            <button type="button" class="btn btn-light-blue btn-md btn-card">Profesionales</button>
+          </a>
+          <a th:href="@{/profesionales/form}">
+            <button type="button" class="btn btn-light-blue btn-md btn-card">Agregar Profesional</button>
+          </a>
+
+				</div>
+
+			</div>
+			<!-- Card -->
+
+			<!-- Card -->
+			<div class="card mb-4">
+
+				<!--Card image-->
+				<div class="view overlay">
+					<img class="card-img-top"
+						src="https://mdbootstrap.com/img/Photos/Others/images/44.jpg"
+						alt="Card image cap"> <a href="#!">
+						<div class="mask rgba-white-slight"></div>
+					</a>
+				</div>
+
+				<!--Card content-->
+				<div class="card-body">
+
+					<!--Title-->
+					<h4 class="card-title">Empresas</h4>
+					<!--Text-->
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p>
+					<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+					<button type="button" class="btn btn-light-blue btn-md">Read
+						more</button>
+
+				</div>
+
+			</div>
+			<!-- Card -->
+
+		</div>
+		<!-- Card deck -->
+
+
+	</div>
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
