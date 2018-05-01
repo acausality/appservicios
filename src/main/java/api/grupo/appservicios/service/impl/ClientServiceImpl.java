@@ -8,10 +8,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import api.grupo.appservicios.data.dao.ClientDAO;
-import api.grupo.appservicios.model.Client;
+import api.grupo.appservicios.data.repository.ClientDAO;
 import api.grupo.appservicios.model.converter.ClientConverter;
 import api.grupo.appservicios.model.dto.ClientDTO;
+import api.grupo.appservicios.model.entity.Client;
 import api.grupo.appservicios.service.ClientService;
 
 @Service
@@ -24,7 +24,7 @@ public class ClientServiceImpl implements ClientService {
 	public List<ClientDTO> listClients() {
 		List<Client> clients = clientDAO.findAll();
 		List<ClientDTO> result = new ArrayList<ClientDTO>();
-		for (Client client: clients)
+		for (Client client : clients)
 			result.add(ClientConverter.modelToDTO(client));
 		
 		return result;

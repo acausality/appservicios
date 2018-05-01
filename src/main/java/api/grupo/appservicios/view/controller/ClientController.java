@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,8 +58,13 @@ public class ClientController {
 	public String saveClient(@Valid @ModelAttribute("client") ClientDTO client, BindingResult bindingResult) {
 		logger.info("Inside saveClient. Received: " + client);
 		if (!bindingResult.hasErrors()) {
-			clientService.saveClient(client);
-
+			try { // no es lo más conveniente
+				clientService.saveClient(client);
+			} catch (DataIntegrityViolationException e) {
+				bindingResult.reject("",
+						"El tipo y número de documento y/o email ya están registrados en otro cliente");
+				return SAVE_CLIENT_FORM;
+			}
 			return "redirect:/clients/list";
 		} else {
 			logger.error("Failed to validate client: " + client);
@@ -88,3 +94,4 @@ public class ClientController {
 	}
 
 }
+

@@ -26,6 +26,9 @@
 								<th scope="col">Nombre</th>
 								<th scope="col">Apellido</th>
 								<th scope="col">Documento</th>
+								<th scope="col">Dirección</th>
+								<th scope="col">Teléfono</th>
+								<th scope="col">E-mail</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -38,15 +41,18 @@
 									<a th:href="@{/clients/form(id=${client.id})}">
 									<i class="fas fa-edit" title="editar"></i></a>
 									</td>
-								<td><span th:text="${client.firstName}"></span></td>
-								<td><span th:text="${client.lastName}"></span></td>
+								<td><span th:text="${client.name}"></span></td>
+								<td><span th:text="${client.surname}"></span></td>
 								<td><span th:text="${client.identityType}"></span>: <span
 									th:text="${client.identityNumber}"></span></td>
+								<td><span th:text="${client.address}"></span></td>
+								<td><span th:text="${client.phoneNumber}"></span></td>
+								<td><span th:text="${client.email}"></span></td>											
 							</tr>
 						</tbody>
 					</table>
 					<a class="btn btn-primary" role="button" th:href="@{/clients/form}">
-						<i class="fas fa-user-plus"></i> Crear cliente
+						<i class="fas fa-user-plus"></i> Nuevo cliente
 					</a>
 </body>
 </html>

@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class ClientDTO {
+public class ProfessionalDTO {
 
 	@NotNull
 	@Min(0)
@@ -32,7 +32,7 @@ public class ClientDTO {
 	@Size(min = 7, max = 50)
 	private String email;
 
-	public ClientDTO(@NotNull @Min(0) long id, @NotBlank @Size(min = 3, max = 50) String name,
+	public ProfessionalDTO(@NotNull @Min(0) long id, @NotBlank @Size(min = 3, max = 50) String name,
 			@NotBlank @Size(min = 3, max = 50) String surname, @NotBlank @Size(max = 50) String identityType,
 			@NotBlank @Size(min = 6, max = 50) String identityNumber, @NotBlank @Size(min = 3, max = 50) String address,
 			@NotBlank @Size(min = 6, max = 50) String phoneNumber, @NotBlank @Size(min = 7, max = 50) String email) {
@@ -47,7 +47,7 @@ public class ClientDTO {
 		this.email = email;
 	}
 
-	public ClientDTO() {
+	public ProfessionalDTO() {
 	}
 
 	public long getId() {
@@ -116,8 +116,9 @@ public class ClientDTO {
 
 	@Override
 	public String toString() {
-		return "ClientDTO [id=" + id + ", name=" + name + ", surname=" + surname + ", identityType=" + identityType
-				+ ", identityNumber=" + identityNumber + ", address=" + address + ", phoneNumber=" + phoneNumber
-				+ ", email=" + email + "]";
+		return "ProfessionalDTO [id=" + id + ", name=" + name + ", surname=" + surname + ", identityType="
+				+ identityType + ", identityNumber=" + identityNumber + ", address=" + address + ", phoneNumber="
+				+ phoneNumber + ", email=" + email + "]";
 	}
+
 }

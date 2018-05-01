@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,28 +26,25 @@
 								<div class="col-md-5 mb-3">
 									<input type="hidden" th:field="*{id}" /> <label
 										for="validationName">Nombre</label> <input type="text"
-										class="form-control" id="validationName"
-										th:field="*{firstName}" aria-describedby="emailHelp"
-										placeholder="Nombre" required>
+										class="form-control" id="validationName" th:field="*{name}"
+										aria-describedby="emailHelp" placeholder="Nombre" required>
 
-									<div class="invalid-feedback">El nombre contiene errores:
+									<div class="invalid-feedback">El nombre contiene errores
 									</div>
 									<span class="invalid-feedback-backend"
-										th:if="${#fields.hasErrors('firstName')}"
-										th:errors="*{firstName}"></span>
+										th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 									<div class="valid-feedback">Se ve bien!</div>
 								</div>
 								<div class="col-md-5 mb-3">
 									<label for="validationSurname">Apellido</label> <input
 										type="text" class="form-control" id="validationSurname"
-										th:field="*{lastName}" aria-describedby="emailHelp"
+										th:field="*{surname}" aria-describedby="emailHelp"
 										placeholder="Apellido" required>
 
 									<div class="invalid-feedback">El apellido contiene
-										errores:</div>
+										errores</div>
 									<span class="invalid-feedback-backend"
-										th:if="${#fields.hasErrors('lastName')}"
-										th:errors="*{lastName}"></span>
+										th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
 									<div class="valid-feedback">Se ve bien!</div>
 								</div>
 							</div>
@@ -68,20 +64,61 @@
 								</div>
 
 								<div class="col-md-5 mb-3">
-									<label for="validationNumDoc">Numero de documento:</label> <input
+									<label for="validationNumDoc">Número de documento:</label> <input
 										type="text" class="form-control" id="validationNumDoc"
 										th:field="*{identityNumber}" aria-describedby="emailHelp"
-										placeholder="Num. Doc." required>
+										placeholder="Núm. Doc." required>
 
 									<div class="invalid-feedback">El número de Documento
-										contiene errores:</div>
+										contiene errores</div>
 									<span class="invalid-feedback-backend"
 										th:if="${#fields.hasErrors('identityNumber')}"
 										th:errors="*{identityNumber}"></span>
 									<div class="valid-feedback">Se ve bien!</div>
 								</div>
 							</div>
+							<div class="form-row">
+								<div class="col-md-5 mb-3">
+									<label for="validationAddress">Dirección:</label> <input
+										type="text" class="form-control" id="validationAddress"
+										th:field="*{address}" aria-describedby="emailHelp"
+										placeholder="Dirección" required>
 
+									<div class="invalid-feedback">La Dirección contiene
+										errores</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+
+								<div class="col-md-5 mb-3">
+									<label for="validationPhoneNumber">Número de Teléfono:
+									</label> <input type="text" class="form-control"
+										id="validationPhoneNumber" th:field="*{phoneNumber}"
+										aria-describedby="emailHelp" placeholder="Núm. tel." required>
+
+									<div class="invalid-feedback">El número de Teléfono
+										contiene errores</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('phoneNumber')}"
+										th:errors="*{phoneNumber}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-md-5 mb-3">
+									<label for="validationEmail">E-mail:</label> <input
+										type="text" class="form-control" id="validationEmail"
+										th:field="*{email}" aria-describedby="emailHelp"
+										placeholder="E-mail" required>
+
+									<div class="invalid-feedback">El E-mail contiene
+										errores</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+							</div>
 
 							<button class="btn btn-primary" type="submit"
 								th:if="${client.id > 0}">Guardar cambios</button>
@@ -93,28 +130,28 @@
 		</div>
 	</div>
 	<script>
-    // JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-      'use strict';
-      window.addEventListener('load',
-          function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document
-                .getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms,
-                function(form) {
-                  form.addEventListener('submit', function(
-                      event) {
-                    if (form.checkValidity() === false) {
-                      event.preventDefault();
-                      event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                  }, false);
-                });
-          }, false);
-    })();
-  </script>
+		// JavaScript for disabling form submissions if there are invalid fields
+		(function() {
+			'use strict';
+			window.addEventListener('load',
+					function() {
+						// Fetch all the forms we want to apply custom Bootstrap validation styles to
+						var forms = document
+								.getElementsByClassName('needs-validation');
+						// Loop over them and prevent submission
+						var validation = Array.prototype.filter.call(forms,
+								function(form) {
+									form.addEventListener('submit', function(
+											event) {
+										if (form.checkValidity() === false) {
+											event.preventDefault();
+											event.stopPropagation();
+										}
+										form.classList.add('was-validated');
+									}, false);
+								});
+					}, false);
+		})();
+	</script>
 </body>
 </html>

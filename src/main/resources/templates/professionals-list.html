@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Profesionales</title>
+</head>
+<body>
+	<h1>Profesionales</h1>
+
+	<table>
+		<tr>
+			<th>Acción</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Tipo de documento</th>
+			<th>Número de documento</th>
+			<th>Dirección</th>
+			<th>Número de teléfono</th>
+			<th>Email</th>
+		</tr>
+		<tr th:each="professional : ${professionals}">
+			<td><a th:href="@{/professionals/form(id=${professional.id})}">Editar</a> | 
+			<a th:href="@{/professionals/delete(id=${professional.id})}"
+					onclick="if (!(confirm('Está seguro de que desea eliminar el profesional?'))) return false">
+				Eliminar</a></td>
+			<td><span th:text="${professional.name}"></span></td>
+			<td><span th:text="${professional.surname}"></span></td>
+			<td><span th:text="${professional.identityType}"></span></td>
+			<td><span th:text="${professional.identityNumber}"></span></td>
+			<td><span th:text="${professional.address}"></span></td>
+			<td><span th:text="${professional.phoneNumber}"></span></td>
+			<td><span th:text="${professional.email}"></span></td>
+		</tr>
+	</table>
+	<a href="/professionals/form">
+		</br><input type="button" value="Nuevo" />
+	</a>
+
+</body>
+</html>
