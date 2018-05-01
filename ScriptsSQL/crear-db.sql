@@ -9,9 +9,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 CREATE DATABASE app_servicios;
 USE app_servicios;
-DROP USER usuario_app_servicios; /* por mas que no exista, es necesaria
-esta linea y la que sigue debido a un bug de MySQL */
-FLUSH PRIVILEGES;
+
 CREATE USER usuario_app_servicios IDENTIFIED BY 'app6529@Serv129457';
 
 GRANT ALL ON `app_servicios`.* TO 'usuario_app_servicios';

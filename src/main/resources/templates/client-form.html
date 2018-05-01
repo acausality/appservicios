@@ -12,6 +12,7 @@
 </head>
 <body>
 	<div class="container">
+<<<<<<< HEAD:src/main/resources/templates/formulario-cliente.html
 	  <div class="formulario">
 			<div class="row">
 				<div class="col-sm-8">
@@ -50,8 +51,44 @@
 										th:if="${#fields.hasErrors('apellido')}"
 										th:errors="*{apellido}"> </span>
 									<div class="valid-feedback">Se ve bien!</div>
+=======
+		<div class="row">
+			<div class="col-sm-8">
+				<i class="fas fa-user-plus"></i>
+				<h1>Clientes</h1>
+				<hr>
+				<br>
+				<form class="needs-validation" novalidate action="#"
+					th:action="@{/clients/save}" th:object="${client}"
+					method="POST">
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-md-5 mb-3">
+								<input type="hidden" th:field="*{id}" /> <label
+									for="validationName">Nombre</label> <input type="text"
+									class="form-control" id="validationName" th:field="*{firstName}"
+									aria-describedby="emailHelp" placeholder="Nombre" required>
+
+								<div class="invalid-feedback">
+									El nombre contiene errores: <span
+										th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+								</div>
+								<div class="valid-feedback">Se ve bien!</div>
+							</div>
+							<div class="col-md-5 mb-3">
+								<label for="validationSurname">Apellido</label> <input
+									type="text" class="form-control" id="validationSurname"
+									th:field="*{lastName}" aria-describedby="emailHelp"
+									placeholder="Apellido" required>
+
+								<div class="invalid-feedback">
+									El apellido contiene errores: <span
+										th:if="${#fields.hasErrors('lastName')}"
+										th:errors="*{lastName}"></span>
+>>>>>>> 76771141d0bfd9058142f55f6286dded262010aa:src/main/resources/templates/client-form.html
 								</div>
 							</div>
+<<<<<<< HEAD:src/main/resources/templates/formulario-cliente.html
 							<div class="form-row">
 								<div class="col-md-5 mb-3">
 									<label for="validationTipeDoc">Tipo de documento:</label> <input
@@ -79,8 +116,37 @@
 										th:if="${#fields.hasErrors('numeroDocumento')}"
 										th:errors="*{numeroDocumento}"></span>
 									<div class="valid-feedback">Se ve bien!</div>
+=======
+						</div>
+						<div class="form-row">
+							<div class="col-md-5 mb-3">
+								<label for="validationTipeDoc">Tipo de documento:</label> <input
+									type="text" class="form-control" id="validationTipeDoc"
+									th:field="*{identityType}" aria-describedby="emailHelp"
+									placeholder="Tipo Doc." required>
+
+								<div class="invalid-feedback">
+									El Tipo de Documento contiene errores <span
+										th:if="${#fields.hasErrors('identityType')}"
+										th:errors="*{identityType}"></span>
+								</div>
+								<div class="valid-feedback">Se ve bien!</div>
+							</div>
+
+							<div class="col-md-5 mb-3">
+								<label for="validationNumDoc">Numero de documento:</label> <input
+									type="text" class="form-control" id="validationNumDoc"
+									th:field="*{identityNumber}" aria-describedby="emailHelp"
+									placeholder="Tipo Doc." required>
+
+								<div class="invalid-feedback">
+									El n&uacute;mero de Documento contiene errores: <span
+										th:if="${#fields.hasErrors('identityNumber')}"
+										th:errors="*{identityNumber}"></span>
+>>>>>>> 76771141d0bfd9058142f55f6286dded262010aa:src/main/resources/templates/client-form.html
 								</div>
 							</div>
+<<<<<<< HEAD:src/main/resources/templates/formulario-cliente.html
 	
 								<button class="btn btn-primary" type="submit"
 									th:if="${cliente.id > 0}">Guardar cambios</button>
@@ -88,6 +154,17 @@
 									th:if="${cliente.id == 0}">Crear Cliente</button>
 					</form>
 				</div>
+=======
+						</div>
+
+						<div class="col-md-2 mb-2">
+							<button class="btn btn-primary" type="submit"
+								th:if="${client.id > 0}">Guardar cambios</button>
+							<button class="btn btn-primary" type="submit"
+								th:if="${client.id == 0}">Crear Cliente</button>
+						</div>
+				</form>
+>>>>>>> 76771141d0bfd9058142f55f6286dded262010aa:src/main/resources/templates/client-form.html
 			</div>
 		</div>
 	</div>
