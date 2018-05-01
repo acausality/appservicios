@@ -12,6 +12,7 @@
 </head>
 <body>
 	<div class="container">
+		<div th:if="${errorMessage!=null}" class="alert alert-danger" th:text="${errorMessage}"></div>
 		<div class="formulario">
 			<div class="row">
 				<div class="col-sm-8">

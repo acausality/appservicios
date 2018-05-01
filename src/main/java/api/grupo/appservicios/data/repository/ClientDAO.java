@@ -12,4 +12,8 @@ import api.grupo.appservicios.model.entity.Client;
 public interface ClientDAO extends JpaRepository<Client, Serializable> {
 
 	public abstract Client findById(long id);
+	
+	public abstract boolean existsByIdentityTypeAndIdentityNumber(String identityType, String identityNumber);
+	
+	public abstract boolean existsByEmail(String email);
 }

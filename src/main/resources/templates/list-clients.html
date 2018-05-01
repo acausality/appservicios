@@ -12,6 +12,7 @@
 </head>
 <body>
 	<div class="container">
+		<div th:if="${successMessage!=null}" class="alert alert-success" th:text="${successMessage}"></div>
 		<div class="formulario">
 			<div class="row">
 				<div class="col-sm-8">

@@ -92,4 +92,8 @@ public abstract class Person {
 		this.email = email;
 	}
 
+	// Usado para comparaciones principalmente
+	public String getFullIdentity() {
+		return (identityType + " " + identityNumber);
+	}
 }

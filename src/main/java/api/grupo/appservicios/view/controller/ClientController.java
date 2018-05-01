@@ -6,7 +6,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,19 +34,16 @@ public class ClientController {
 	@Autowired
 	private ClientService clientService;
 
-	/*
-	 * esto se va a usar para parte de la validacion. Cuando se recibe un string,
-	 * quita los espacios extra al final y al principio, y si queda un string vacio
-	 * lo hace null
-	 */
+	// Parte de la validacion: verifica que los strings que llegan no son vacios o
+	// espacios
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
-		// true en el constructor para que haga que los strings vacios se seteen a null
+		// True en el constructor hace que los strings vacios se conviertan en null
 		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
 		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
 	}
 
-	// muestra un listado con todos los clientes
+	// Listado de clientes
 	@GetMapping("/list")
 	public String listClients(Model model) {
 		logger.info("Inside listClients");
@@ -54,26 +52,31 @@ public class ClientController {
 		return LIST_CLIENTS;
 	}
 
+	// Crear cliente nuevo o modificar existente
 	@PostMapping("/save")
-	public String saveClient(@Valid @ModelAttribute("client") ClientDTO client, BindingResult bindingResult) {
+	public String saveClient(@Valid @ModelAttribute("client") ClientDTO client, BindingResult bindingResult,
+			Model model) {
 		logger.info("Inside saveClient. Received: " + client);
-		if (!bindingResult.hasErrors()) {
-			try { // no es lo más conveniente
-				clientService.saveClient(client);
-			} catch (DataIntegrityViolationException e) {
-				bindingResult.reject("",
-						"El tipo y número de documento y/o email ya están registrados en otro cliente");
-				return SAVE_CLIENT_FORM;
-			}
-			return "redirect:/clients/list";
-		} else {
+		if (bindingResult.hasErrors()) {
 			logger.error("Failed to validate client: " + client);
 			logger.error(bindingResult.toString());
 
 			return SAVE_CLIENT_FORM;
+		} else {
+			try {
+				clientService.saveClient(client);
+			} catch (DuplicateKeyException | EmptyResultDataAccessException e) {
+				model.addAttribute("errorMessage", e.getMessage());
+				return SAVE_CLIENT_FORM;
+			}
+
+			model.addAttribute("successMessage",
+					"Cliente: " + client.getSurname() + ", " + client.getName() + " guardado!");
+			return listClients(model);
 		}
 	}
 
+	//Formulario de alta/modificación de cliente
 	@GetMapping("/form")
 	public String showClientForm(@RequestParam(value = "id", defaultValue = "0", required = false) long id,
 			Model model) {
@@ -85,6 +88,7 @@ public class ClientController {
 		return SAVE_CLIENT_FORM;
 	}
 
+	//Eliminación de cliente
 	@GetMapping("/remove")
 	public String removeClient(@RequestParam(value = "id", required = true) long id) {
 		if (id > 0)
@@ -94,4 +98,3 @@ public class ClientController {
 	}
 
 }
-
