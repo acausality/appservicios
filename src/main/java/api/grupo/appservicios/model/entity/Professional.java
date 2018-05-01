@@ -18,7 +18,7 @@ public class Professional extends Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_professional")
+	@Column(name = "professional_id")
 	private long id;
 
 	public Professional(String name, String surname, String identityType, String identityNumber, String address,
