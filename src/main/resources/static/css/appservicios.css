@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i');
+
+body {
+	font-family: 'Open Sans';
+}
+.invalid-feedback-backend {
+	width: 100%;
+	margin-top: .25rem;
+	font-size: 80%;
+	color: #dc3545;
+}
+
+.formulario {
+	color: #555;
+}
+.formulario h2 {
+	color: steelblue;
+	padding-top: 0.5em;
+}
+
+<!-- #007bff -->
