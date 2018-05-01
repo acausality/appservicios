@@ -11,26 +11,26 @@ import javax.persistence.UniqueConstraint;
 import api.grupo.appservicios.model.Person;
 
 @Entity
-@Table(name = "professionals", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "identity_type", "identity_number" }),
+@Table(name = "clients", uniqueConstraints = { @UniqueConstraint(columnNames = { "identity_type", "identity_number" }),
 		@UniqueConstraint(columnNames = "email") })
-public class Professional extends Person {
+public class Client extends Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_professional")
+	@Column(name = "id_cliente")
 	private long id;
 
-	public Professional(String name, String surname, String identityType, String identityNumber, String address,
+	public Client(String name, String surname, String identityType, String identityNumber, String address,
 			String phoneNumber, String email, long id) {
 		super(name, surname, identityType, identityNumber, address, phoneNumber, email);
 		this.id = id;
 	}
 
-	public Professional() {
+	public Client() {
 	}
 
 	public long getId() {
 		return id;
 	}
+
 }

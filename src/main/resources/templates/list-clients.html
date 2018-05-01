@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Listado de clientes</title>
+</head>
+<body>
+	<h1>Clientes</h1>
+
+	<table>
+		<tr>
+			<th>Acción</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Tipo de documento</th>
+			<th>Número de documento</th>
+			<th>Dirección</th>
+			<th>Número de teléfono</th>
+			<th>Email</th>
+		</tr>
+		<tr th:each="client : ${clients}">
+			<td><a th:href="@{/clients/form(id=${client.id})}">Editar</a> | 
+			<a th:href="@{/clients/remove(id=${client.id})}"
+					onclick="if (!(confirm('Está seguro de que desea eliminar el cliente?'))) return false">
+				Eliminar</a></td>
+			<td><span th:text="${client.name}"></span></td>
+			<td><span th:text="${client.surname}"></span></td>
+			<td><span th:text="${client.identityType}"></span></td>
+			<td><span th:text="${client.identityNumber}"></span></td>
+			<td><span th:text="${client.address}"></span></td>
+			<td><span th:text="${client.phoneNumber}"></span></td>
+			<td><span th:text="${client.email}"></span></td>
+		</tr>
+	</table>
+	<a href="/clients/form">
+		</br><input type="button" value="Nuevo" />
+	</a>
+</body>
+</html>

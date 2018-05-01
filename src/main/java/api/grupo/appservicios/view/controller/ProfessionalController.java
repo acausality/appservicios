@@ -54,7 +54,7 @@ public class ProfessionalController {
 			return PROFESSIONAL_FORM;
 		} else {
 			try { // no es lo más conveniente
-				professionalService.addProfessional(professionalDTO);
+				professionalService.saveAndUpdateProfessional(professionalDTO);
 			} catch (DataIntegrityViolationException e) {
 				bindingResult.reject("",
 						"El tipo y número de documento y/o email ya están registrados en otro profesional");

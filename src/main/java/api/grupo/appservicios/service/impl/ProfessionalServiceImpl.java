@@ -31,20 +31,14 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 	}
 
 	@Override
-	public Professional addProfessional(ProfessionalDTO professionalDTO) {
+	public Professional saveAndUpdateProfessional(ProfessionalDTO professionalDTO) {
 		return professionalDAO.save(professionalConverter.DTOtoEntity(professionalDTO));
 	}
 
 	@Override
-	public long removeProfessional(long id) {
+	public void removeProfessional(long id) {
 		if(professionalDAO.existsById(id))
 			professionalDAO.deleteById(id);
-		return 0;
-	}
-
-	@Override
-	public Professional updateProfessional(ProfessionalDTO professionalDTO) {
-		return professionalDAO.save(professionalConverter.DTOtoEntity(professionalDTO));
 	}
 
 	@Override

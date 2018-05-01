@@ -9,11 +9,9 @@ public interface ProfessionalService {
 
 	public abstract List<ProfessionalDTO> listAllProfessionals();
 
-	public abstract Professional addProfessional(ProfessionalDTO professionalDTO);
+	public abstract Professional saveAndUpdateProfessional(ProfessionalDTO professionalDTO);
 
-	public abstract long removeProfessional(long id);
-
-	public abstract Professional updateProfessional(ProfessionalDTO professionalDTO);
+	public abstract void removeProfessional(long id);
 
 	public abstract ProfessionalDTO findProfessional(long id);
 }
