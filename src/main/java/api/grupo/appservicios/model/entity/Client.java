@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import api.grupo.appservicios.model.Person;
-
 @Entity
 @Table(name = "clients", uniqueConstraints = { @UniqueConstraint(columnNames = { "identity_type", "identity_number" }),
 		@UniqueConstraint(columnNames = "email") })

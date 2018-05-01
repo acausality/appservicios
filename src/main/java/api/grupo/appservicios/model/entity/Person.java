@@ -1,4 +1,4 @@
-package api.grupo.appservicios.model;
+package api.grupo.appservicios.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
