@@ -11,7 +11,9 @@
 <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<!-- Navbar -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container content">
 		<div th:if="${errorMessage!=null}" class="alert alert-danger" th:text="${errorMessage}"></div>
 		<div class="formulario">
 			<div class="row">
@@ -27,13 +29,15 @@
 								<div class="col-md-5 mb-3">
 									<input type="hidden" th:field="*{id}" /> <label
 										for="validationName">Nombre</label> <input type="text"
-										class="form-control" id="validationName" th:field="*{name}"
-										aria-describedby="emailHelp" placeholder="Nombre" required>
+										class="form-control" id="validationName" 
+										th:field="*{name}" aria-describedby="emailHelp"
+										placeholder="Nombre" required>
 
 									<div class="invalid-feedback">El nombre contiene errores
 									</div>
 									<span class="invalid-feedback-backend"
-										th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+										th:if="${#fields.hasErrors('name')}"
+										th:errors="*{name}"></span>
 									<div class="valid-feedback">Se ve bien!</div>
 								</div>
 								<div class="col-md-5 mb-3">
@@ -45,7 +49,8 @@
 									<div class="invalid-feedback">El apellido contiene
 										errores</div>
 									<span class="invalid-feedback-backend"
-										th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+										th:if="${#fields.hasErrors('surname')}"
+										th:errors="*{surname}"></span>
 									<div class="valid-feedback">Se ve bien!</div>
 								</div>
 							</div>
@@ -130,29 +135,28 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		// JavaScript for disabling form submissions if there are invalid fields
-		(function() {
-			'use strict';
-			window.addEventListener('load',
-					function() {
-						// Fetch all the forms we want to apply custom Bootstrap validation styles to
-						var forms = document
-								.getElementsByClassName('needs-validation');
-						// Loop over them and prevent submission
-						var validation = Array.prototype.filter.call(forms,
-								function(form) {
-									form.addEventListener('submit', function(
-											event) {
-										if (form.checkValidity() === false) {
-											event.preventDefault();
-											event.stopPropagation();
-										}
-										form.classList.add('was-validated');
-									}, false);
-								});
-					}, false);
-		})();
-	</script>
+	</div>
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
+<script>
+	// JavaScript for disabling form submissions if there are invalid fields
+	(function() {
+		'use strict';
+		window.addEventListener('load', function() {
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.getElementsByClassName('needs-validation');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+				}, false);
+			});
+		}, false);
+	})();
+</script>
 </html>

@@ -11,7 +11,9 @@
 <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<!-- Navbar -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container content">
 		<div th:if="${successMessage!=null}" class="alert alert-success" th:text="${successMessage}"></div>
 		<div class="formulario">
 			<div class="row">
@@ -55,5 +57,11 @@
 					<a class="btn btn-primary" role="button" th:href="@{/clients/form}">
 						<i class="fas fa-user-plus"></i> Nuevo cliente
 					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
