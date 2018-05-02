@@ -90,11 +90,17 @@ public class ClientController {
 
 	// Eliminación de cliente
 	@GetMapping("/remove")
-	public String removeClient(@RequestParam(value = "id", required = true) long id) {
-		if (id > 0)
+	public String removeClient(@RequestParam(value = "id", required = true) long id, Model model) {
+		ClientDTO client = clientService.findClient(id);
+		if (client == null) {
+			model.addAttribute("errorMessage", "Error! No se encontró el cliente a eliminar.");
+			return listClients(model);
+		} else {
 			clientService.removeClient(id);
-
-		return "redirect:/clients/list";
+			model.addAttribute("successMessage",
+					"Cliente: " + client.getSurname() + ", " + client.getName() + " eliminado!");
+			return listClients(model);
+		}
 	}
 
 }
