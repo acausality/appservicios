@@ -1,34 +1,162 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Formulario</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link href="/fontawesome/css/fontawesome-all.css" rel="stylesheet">
+<link href="/css/appservices.css" rel="stylesheet">
+<title>Formulario de alta/modificación de profesionales</title>
+
+<script src="/jquery/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<form action="#" th:action="@{/professionals/add}" th:object="${professional}" method="post">
-	<input type="hidden" th:field="*{id}"/>
-		<fieldset>
-			<legend>Datos del profesional</legend>
-			<p th:if="${#fields.errors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"></p>
-		
-			<p>Nombre: <input type="text" th:field="*{name}"/></p>
-			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-			<p>Apellido: <input type="text" th:field="*{surname}"/></p>
-			<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
-			<p>Tipo de documento: <input type="text" th:field="*{identityType}"/></p>
-			<p th:if="${#fields.hasErrors('identityType')}" th:errors="*{identityType}"></p>
-			<p>Número de documento: <input type="text" th:field="*{identityNumber}"/></p>
-			<p th:if="${#fields.hasErrors('identityNumber')}" th:errors="*{identityNumber}"></p>
-			<p>Dirección: <input type="text" th:field="*{address}"/></p>
-			<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
-			<p>Número de teléfono: <input type="text" th:field="*{phoneNumber}"/></p>
-			<p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
-			<p>Email: <input type="text" th:field="*{email}"/></p>
-			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-				
-			<p><input type="submit" value="Guardar cambios" th:if="${professional.id > 0}"/></p>
-			<p><input type="submit" value="Confirmar" th:if="${professional.id == 0}"/></p>
-		</fieldset>
-	</form>
+	<!-- Navbar -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container content">
+		<div th:if="${errorMessage!=null}" class="alert alert-danger" th:text="${errorMessage}"></div>
+		<div class="formulario">
+			<div class="row">
+				<div class="col-sm-8">
+					<h2 class="formulario">
+						<i class="far fa-id-card"></i> Profesionales
+					</h2>
+					<hr>
+					<form class="needs-validation" novalidate action="#"
+						th:action="@{/professionals/add}" th:object="${professional}" method="POST">
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-md-5 mb-3">
+									<input type="hidden" th:field="*{id}" /> <label
+										for="validationName">Nombre</label> <input type="text"
+										class="form-control" id="validationName" 
+										th:field="*{name}" aria-describedby="emailHelp"
+										placeholder="Nombre" required>
+
+									<div class="invalid-feedback">El nombre contiene errores
+									</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('name')}"
+										th:errors="*{name}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+								<div class="col-md-5 mb-3">
+									<label for="validationSurname">Apellido</label> <input
+										type="text" class="form-control" id="validationSurname"
+										th:field="*{surname}" aria-describedby="emailHelp"
+										placeholder="Apellido" required>
+
+									<div class="invalid-feedback">El apellido contiene
+										errores</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('surname')}"
+										th:errors="*{surname}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-md-5 mb-3">
+									<label for="validationTipeDoc">Tipo de documento:</label> <input
+										type="text" class="form-control" id="validationTipeDoc"
+										th:field="*{identityType}" aria-describedby="emailHelp"
+										placeholder="Tipo Doc." required>
+
+									<div class="invalid-feedback">El Tipo de Documento
+										contiene errores</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('identityType')}"
+										th:errors="*{identityType}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+
+								<div class="col-md-5 mb-3">
+									<label for="validationNumDoc">Número de documento:</label> <input
+										type="text" class="form-control" id="validationNumDoc"
+										th:field="*{identityNumber}" aria-describedby="emailHelp"
+										placeholder="Núm. Doc." required>
+
+									<div class="invalid-feedback">El número de Documento
+										contiene errores</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('identityNumber')}"
+										th:errors="*{identityNumber}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-md-5 mb-3">
+									<label for="validationAddress">Dirección:</label> <input
+										type="text" class="form-control" id="validationAddress"
+										th:field="*{address}" aria-describedby="emailHelp"
+										placeholder="Dirección" required>
+
+									<div class="invalid-feedback">La Dirección contiene
+										errores</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+
+								<div class="col-md-5 mb-3">
+									<label for="validationPhoneNumber">Número de Teléfono:
+									</label> <input type="text" class="form-control"
+										id="validationPhoneNumber" th:field="*{phoneNumber}"
+										aria-describedby="emailHelp" placeholder="Núm. tel." required>
+
+									<div class="invalid-feedback">El número de Teléfono
+										contiene errores</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('phoneNumber')}"
+										th:errors="*{phoneNumber}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-md-5 mb-3">
+									<label for="validationEmail">E-mail:</label> <input
+										type="text" class="form-control" id="validationEmail"
+										th:field="*{email}" aria-describedby="emailHelp"
+										placeholder="E-mail" required>
+
+									<div class="invalid-feedback">El E-mail contiene
+										errores</div>
+									<span class="invalid-feedback-backend"
+										th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+									<div class="valid-feedback">Se ve bien!</div>
+								</div>
+							</div>
+
+							<button class="btn btn-primary" type="submit"
+								th:if="${professional.id > 0}">Guardar cambios</button>
+							<button class="btn btn-primary" type="submit"
+								th:if="${professional.id == 0}">Crear Profesional</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
+<script>
+	// JavaScript for disabling form submissions if there are invalid fields
+	(function() {
+		'use strict';
+		window.addEventListener('load', function() {
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.getElementsByClassName('needs-validation');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+				}, false);
+			});
+		}, false);
+	})();
+</script>
 </html>

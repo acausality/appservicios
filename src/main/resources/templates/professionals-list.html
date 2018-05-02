@@ -1,40 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Profesionales</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link href="/fontawesome/css/fontawesome-all.css" rel="stylesheet">
+<link href="/css/appservices.css" rel="stylesheet">
+<title>Listado de profesionales</title>
+
+<script src="/jquery/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1>Profesionales</h1>
-
-	<table>
-		<tr>
-			<th>Acción</th>
-			<th>Nombre</th>
-			<th>Apellido</th>
-			<th>Tipo de documento</th>
-			<th>Número de documento</th>
-			<th>Dirección</th>
-			<th>Número de teléfono</th>
-			<th>Email</th>
-		</tr>
-		<tr th:each="professional : ${professionals}">
-			<td><a th:href="@{/professionals/form(id=${professional.id})}">Editar</a> | 
-			<a th:href="@{/professionals/delete(id=${professional.id})}"
-					onclick="if (!(confirm('Está seguro de que desea eliminar el profesional?'))) return false">
-				Eliminar</a></td>
-			<td><span th:text="${professional.name}"></span></td>
-			<td><span th:text="${professional.surname}"></span></td>
-			<td><span th:text="${professional.identityType}"></span></td>
-			<td><span th:text="${professional.identityNumber}"></span></td>
-			<td><span th:text="${professional.address}"></span></td>
-			<td><span th:text="${professional.phoneNumber}"></span></td>
-			<td><span th:text="${professional.email}"></span></td>
-		</tr>
-	</table>
-	<a href="/professionals/form">
-		</br><input type="button" value="Nuevo" />
-	</a>
-
+	<!-- Navbar -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container content">
+		<div th:if="${successMessage!=null}" class="alert alert-success" th:text="${successMessage}"></div>
+		<div class="formulario">
+			<div class="row">
+				<div class="col-sm-8">
+					<h2 class="formulario">
+						<i class="fas fa-users"></i> Profesionales
+					</h2>
+					<table class="table table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Acciones</th>
+								<th scope="col">Nombre</th>
+								<th scope="col">Apellido</th>
+								<th scope="col">Documento</th>
+								<th scope="col">Dirección</th>
+								<th scope="col">Teléfono</th>
+								<th scope="col">E-mail</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="professional:${professionals}">
+								<th scope="row"><span th:text="${professional.id}"></span></th>
+								<td class="action">
+								  <a th:href="@{/professionals/delete(id=${professional.id})}"
+									onclick="if (!(confirm('¿Está seguro de que desea eliminar el profesional?'))) return false">
+									<i class="fas fa-trash-alt" title="eliminar"></i></a>
+									<a th:href="@{/professionals/form(id=${professional.id})}">
+									<i class="fas fa-edit" title="editar"></i></a>
+									</td>
+								<td><span th:text="${professional.name}"></span></td>
+								<td><span th:text="${professional.surname}"></span></td>
+								<td><span th:text="${professional.identityType}"></span>: <span
+									th:text="${professional.identityNumber}"></span></td>
+								<td><span th:text="${professional.address}"></span></td>
+								<td><span th:text="${professional.phoneNumber}"></span></td>
+								<td><span th:text="${professional.email}"></span></td>											
+							</tr>
+						</tbody>
+					</table>
+					<a class="btn btn-primary" role="button" th:href="@{/professionals/form}">
+						<i class="fas fa-user-plus"></i> Nuevo profesional
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
