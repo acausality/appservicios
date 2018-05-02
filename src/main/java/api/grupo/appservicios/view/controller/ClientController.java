@@ -35,7 +35,7 @@ public class ClientController {
 	private ClientService clientService;
 
 	// Parte de la validacion: verifica que los strings que llegan no son vacios o
-	// espacios
+	// espacios, eliminando los espacios al principio y al final
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
 		// True en el constructor hace que los strings vacios se conviertan en null
@@ -76,7 +76,7 @@ public class ClientController {
 		}
 	}
 
-	//Formulario de alta/modificación de cliente
+	// Formulario de alta/modificación de cliente
 	@GetMapping("/form")
 	public String showClientForm(@RequestParam(value = "id", defaultValue = "0", required = false) long id,
 			Model model) {
@@ -88,7 +88,7 @@ public class ClientController {
 		return SAVE_CLIENT_FORM;
 	}
 
-	//Eliminación de cliente
+	// Eliminación de cliente
 	@GetMapping("/remove")
 	public String removeClient(@RequestParam(value = "id", required = true) long id) {
 		if (id > 0)

@@ -37,7 +37,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
 	@Override
 	public void removeProfessional(long id) {
-		if(professionalDAO.existsById(id))
+		if (professionalDAO.existsById(id))
 			professionalDAO.deleteById(id);
 	}
 
