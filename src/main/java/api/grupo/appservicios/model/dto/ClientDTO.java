@@ -33,8 +33,8 @@ public class ClientDTO {
 	private String email;
 
 	public ClientDTO(@NotNull @Min(0) long id, @NotBlank @Size(min = 3, max = 50) String name,
-			@NotBlank @Size(min = 3, max = 50) String surname, @NotBlank @Size(max = 50) String identityType,
-			@NotBlank @Size(min = 6, max = 50) String identityNumber, @NotBlank @Size(min = 3, max = 50) String address,
+			@NotBlank @Size(min = 3, max = 50) String surname, @NotBlank @Size(max = 30) String identityType,
+			@NotBlank @Size(min = 6, max = 70) String identityNumber, @NotBlank @Size(min = 3, max = 50) String address,
 			@NotBlank @Size(min = 6, max = 50) String phoneNumber, @NotBlank @Size(min = 7, max = 50) String email) {
 		super();
 		this.id = id;
