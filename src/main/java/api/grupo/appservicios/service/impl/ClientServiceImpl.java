@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class ClientServiceImpl implements ClientService {
 		Client newClientData = ClientConverter.DTOToModel(clientDTO);
 		Client currentClientData = clientDAO.findById(newClientData.getId());
 		boolean isCreation = (newClientData.getId() == 0);
-		
+
 		// Verificar que es una creacion de cliente nuevo, o bien existe el cliente a
 		// modificar
 		if (!isCreation && currentClientData == null)
