@@ -17,10 +17,10 @@ public class ClientDTO {
 	@Size(min = 3, max = 50)
 	private String surname;
 	@NotBlank
-	@Size(max = 50)
+	@Size(max = 30)
 	private String identityType;
 	@NotBlank
-	@Size(min = 6, max = 50)
+	@Size(min = 6, max = 70)
 	private String identityNumber;
 	@NotBlank
 	@Size(min = 3, max = 50)
