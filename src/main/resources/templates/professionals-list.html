@@ -38,10 +38,10 @@
 							<tr th:each="professional:${professionals}">
 								<th scope="row"><span th:text="${professional.id}"></span></th>
 								<td class="action">
-								  <a th:href="@{/professionals/delete(id=${professional.id})}"
+								  <a th:href="@{/professional/delete(id=${professional.id})}"
 									onclick="if (!(confirm('¿Está seguro de que desea eliminar el profesional?'))) return false">
 									<i class="fas fa-trash-alt" title="eliminar"></i></a>
-									<a th:href="@{/professionals/form(id=${professional.id})}">
+									<a th:href="@{/professional/form(id=${professional.id})}">
 									<i class="fas fa-edit" title="editar"></i></a>
 									</td>
 								<td><span th:text="${professional.name}"></span></td>
@@ -54,7 +54,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<a class="btn btn-primary" role="button" th:href="@{/professionals/form}">
+					<a class="btn btn-primary" role="button" th:href="@{/professional/form}">
 						<i class="fas fa-user-plus"></i> Nuevo profesional
 					</a>
 				</div>

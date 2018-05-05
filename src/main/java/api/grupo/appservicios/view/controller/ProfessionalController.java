@@ -19,7 +19,7 @@ import api.grupo.appservicios.model.dto.ProfessionalDTO;
 import api.grupo.appservicios.service.ProfessionalService;
 
 @Controller
-@RequestMapping("/professionals")
+@RequestMapping("/professional")
 public class ProfessionalController {
 
 	private static final Log LOG = LogFactory.getLog(ProfessionalController.class);
@@ -67,6 +67,6 @@ public class ProfessionalController {
 	@GetMapping("/delete")
 	public String deleteProfessional(@RequestParam(value = "id", required = true) long id) {
 		professionalService.removeProfessional(id);
-		return "redirect:/professionals/list";
+		return "redirect:/professional/list";
 	}
 }
