@@ -31,4 +31,15 @@ public class Client extends Person {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", name=" + name + ", surname=" + surname + ", identityType=" + identityType
+				+ ", identityNumber=" + identityNumber + ", address=" + address + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + "]";
+	}
+
 }

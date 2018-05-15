@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import api.grupo.appservicios.data.repository.ProfessionalDAO;
 import api.grupo.appservicios.model.dto.ProfessionalDTO;
 import api.grupo.appservicios.model.entity.Professional;
-import api.grupo.appservicios.model.mapper.ProfessionalConverter;
+import api.grupo.appservicios.model.mapper.ProfessionalMapper;
 import api.grupo.appservicios.service.ProfessionalService;
 
 @Service("professionalService")
@@ -18,21 +18,18 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 	@Autowired
 	private ProfessionalDAO professionalDAO;
 
-	@Autowired
-	private ProfessionalConverter professionalConverter;
-
 	@Override
 	public List<ProfessionalDTO> listAllProfessionals() {
 		List<Professional> professionals = professionalDAO.findAll();
 		List<ProfessionalDTO> professionalDTOs = new ArrayList<>();
 		for (Professional professional : professionals)
-			professionalDTOs.add(professionalConverter.entityToDTO(professional));
+			professionalDTOs.add(ProfessionalMapper.INSTANCE.professionalToDTO(professional));
 		return professionalDTOs;
 	}
 
 	@Override
 	public Professional saveAndUpdateProfessional(ProfessionalDTO professionalDTO) {
-		return professionalDAO.save(professionalConverter.DTOtoEntity(professionalDTO));
+		return professionalDAO.save(ProfessionalMapper.INSTANCE.DTOToProfessional(professionalDTO));
 	}
 
 	@Override
@@ -46,7 +43,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 		Professional professional = professionalDAO.findById(id);
 		if (professional == null)
 			return null;
-		return professionalConverter.entityToDTO(professional);
+		return ProfessionalMapper.INSTANCE.professionalToDTO(professional);
 	}
 
 }
