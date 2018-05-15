@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import api.grupo.appservicios.data.repository.ProfessionalDAO;
-import api.grupo.appservicios.model.converter.ProfessionalConverter;
 import api.grupo.appservicios.model.dto.ProfessionalDTO;
 import api.grupo.appservicios.model.entity.Professional;
+import api.grupo.appservicios.model.mapper.ProfessionalConverter;
 import api.grupo.appservicios.service.ProfessionalService;
 
 @Service("professionalService")

@@ -1,4 +1,4 @@
-package api.grupo.appservicios.model.converter;
+package api.grupo.appservicios.model.mapper;
 
 import org.springframework.stereotype.Component;
 
