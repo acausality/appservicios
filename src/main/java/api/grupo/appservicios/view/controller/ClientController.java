@@ -23,7 +23,7 @@ import api.grupo.appservicios.model.dto.ClientDTO;
 import api.grupo.appservicios.service.ClientService;
 
 @Controller
-@RequestMapping("/clients")
+@RequestMapping("/client")
 public class ClientController {
 	// constantes para los nombres de los templates
 	private static final String LIST_CLIENTS = "list-clients";

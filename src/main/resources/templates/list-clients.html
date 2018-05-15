@@ -43,10 +43,10 @@
 							<tr th:each="client:${clients}">
 								<th scope="row"><span th:text="${client.id}"></span></th>
 								<td class="action">
-								  <a th:href="@{/clients/remove(id=${client.id})}"
+								  <a th:href="@{/client/remove(id=${client.id})}"
 									onclick="if (!(confirm('Está seguro de que desea eliminar el cliente?'))) return false">
 									<i class="fas fa-trash-alt" title="eliminar"></i></a>
-									<a th:href="@{/clients/form(id=${client.id})}">
+									<a th:href="@{/client/form(id=${client.id})}">
 									<i class="fas fa-edit" title="editar"></i></a>
 									</td>
 								<td><span th:text="${client.name}"></span></td>
@@ -59,7 +59,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<a class="btn btn-primary" role="button" th:href="@{/clients/form}">
+					<a class="btn btn-primary" role="button" th:href="@{/client/form}">
 						<i class="fas fa-user-plus"></i> Nuevo cliente
 					</a>
 				</div>
