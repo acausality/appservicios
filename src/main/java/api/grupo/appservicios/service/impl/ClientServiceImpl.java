@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,7 +20,9 @@ import api.grupo.appservicios.service.ClientService;
 
 @Service
 public class ClientServiceImpl implements ClientService {
-
+	
+	private static final Logger LOGGER = LogManager.getLogger();
+	
 	@Autowired
 	ClientDAO clientDAO;
 
@@ -60,6 +64,7 @@ public class ClientServiceImpl implements ClientService {
 		}
 		// Si no se dio ninguna de las excepciones anteriores, guardar el cliente
 		clientDAO.save(newClientData);
+		LOGGER.info("Saved client with id: {}", newClientData.getId());
 	}
 
 	@Override
@@ -73,8 +78,10 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public void removeClient(long id) {
-		if (clientDAO.existsById(id))
+		if (clientDAO.existsById(id)) {
 			clientDAO.deleteById(id);
+			LOGGER.info("Client with id {} removed", id);
+		}
 	}
 
 }

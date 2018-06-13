@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -32,6 +33,16 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
@@ -53,6 +64,10 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>2.0.0.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -68,6 +83,7 @@
 				<configuration>
 					<source>${java.version}</source> <!-- or higher, depending on your project -->
 					<target>${java.version}</target> <!-- or higher, depending on your project -->
+					<debug>true</debug>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.mapstruct</groupId>

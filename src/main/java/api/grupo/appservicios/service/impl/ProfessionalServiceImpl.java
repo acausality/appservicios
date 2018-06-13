@@ -3,6 +3,8 @@ package api.grupo.appservicios.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import api.grupo.appservicios.service.ProfessionalService;
 
 @Service("professionalService")
 public class ProfessionalServiceImpl implements ProfessionalService {
+	
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Autowired
 	private ProfessionalDAO professionalDAO;
@@ -29,13 +33,18 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
 	@Override
 	public Professional saveAndUpdateProfessional(ProfessionalDTO professionalDTO) {
-		return professionalDAO.save(ProfessionalMapper.INSTANCE.DTOToProfessional(professionalDTO));
+		Professional professionalToSave = ProfessionalMapper.INSTANCE.DTOToProfessional(professionalDTO);
+		professionalDAO.save(professionalToSave);
+		LOGGER.info("Saved professional with id: {}", professionalToSave.getId());
+		return professionalToSave;
 	}
 
 	@Override
 	public void removeProfessional(long id) {
-		if (professionalDAO.existsById(id))
+		if (professionalDAO.existsById(id)) {
 			professionalDAO.deleteById(id);
+			LOGGER.info("Professional with id {} removed", id);
+		}
 	}
 
 	@Override

@@ -2,8 +2,8 @@ package api.grupo.appservicios.view.controller;
 
 import javax.validation.Valid;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.dao.DuplicateKeyException;
@@ -29,8 +29,9 @@ public class ClientController {
 	private static final String LIST_CLIENTS = "list-clients";
 	private static final String SAVE_CLIENT_FORM = "client-form";
 
-	private Log logger = LogFactory.getLog(ClientController.class);
-
+	private static final Logger LOGGER = LogManager.getLogger(ClientController.class);
+	private static final Logger CONSOLE = LogManager.getLogger("api.grupo.appservicios.ClientController");
+	
 	@Autowired
 	private ClientService clientService;
 
@@ -46,7 +47,7 @@ public class ClientController {
 	// Listado de clientes
 	@GetMapping("/list")
 	public String listClients(Model model) {
-		logger.info("Inside listClients");
+		LOGGER.debug("Processing 'listClients' request");
 		model.addAttribute("clients", clientService.listClients());
 
 		return LIST_CLIENTS;
@@ -56,20 +57,19 @@ public class ClientController {
 	@PostMapping("/save")
 	public String saveClient(@Valid @ModelAttribute("client") ClientDTO client, BindingResult bindingResult,
 			Model model) {
-		logger.info("Inside saveClient. Received: " + client);
+		LOGGER.debug("Processing 'saveClient' request");
 		if (bindingResult.hasErrors()) {
-			logger.error("Failed to validate client: " + client);
-			logger.error(bindingResult.toString());
-
+			LOGGER.info("Failed to validate client: {}", bindingResult);
 			return SAVE_CLIENT_FORM;
 		} else {
 			try {
 				clientService.saveClient(client);
 			} catch (DuplicateKeyException | EmptyResultDataAccessException e) {
+				CONSOLE.warn("Client could not be saved: {}", e.getMessage());
+				LOGGER.warn("An exception occurred while trying to save a client:", e);
 				model.addAttribute("errorMessage", e.getMessage());
 				return SAVE_CLIENT_FORM;
 			}
-
 			model.addAttribute("successMessage",
 					"Cliente: " + client.getSurname() + ", " + client.getName() + " guardado!");
 			return listClients(model);
@@ -80,6 +80,7 @@ public class ClientController {
 	@GetMapping("/form")
 	public String showClientForm(@RequestParam(value = "id", defaultValue = "0", required = false) long id,
 			Model model) {
+		LOGGER.debug("Processing 'showClientForm' request with id: {}", id);
 		ClientDTO client = clientService.findClient(id);
 		if (client == null)
 			client = new ClientDTO();
@@ -91,6 +92,7 @@ public class ClientController {
 	// Eliminación de cliente
 	@GetMapping("/remove")
 	public String removeClient(@RequestParam(value = "id", required = true) long id, Model model) {
+		LOGGER.debug("Processing 'removeClient' request with id: {}", id);
 		ClientDTO client = clientService.findClient(id);
 		if (client == null) {
 			model.addAttribute("errorMessage", "Error! No se encontró el cliente a eliminar.");
