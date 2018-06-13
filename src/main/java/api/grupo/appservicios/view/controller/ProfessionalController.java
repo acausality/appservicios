@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,10 +21,11 @@ import api.grupo.appservicios.service.ProfessionalService;
 @Controller
 @RequestMapping("/professional")
 public class ProfessionalController {
-	
-	private static final Logger LOGGER = LogManager.getLogger();
 	private static final String PROFESSIONALS_LIST = "professionals-list";
 	private static final String PROFESSIONAL_FORM = "professional-form";
+	
+	private static final Logger LOGGER = LogManager.getLogger(ProfessionalController.class);
+	private static final Logger CONSOLE = LogManager.getLogger("api.grupo.appservicios.ProfessionalController");
 
 	@Autowired
 	private ProfessionalService professionalService;
@@ -48,29 +49,38 @@ public class ProfessionalController {
 
 	@PostMapping("/add")
 	public String addProfessional(@Valid @ModelAttribute("professional") ProfessionalDTO professionalDTO,
-			BindingResult bindingResult) {
+			BindingResult bindingResult, Model model) {
 		LOGGER.debug("Processing 'addProfessional' request");
 		if (bindingResult.hasErrors()) {
-			LOGGER.info("Failed to validate professional");
-			LOGGER.debug(bindingResult.toString());
+			LOGGER.info("Failed to validate professional: {}", bindingResult);
 			return PROFESSIONAL_FORM;
 		} else {
-			try { // no es lo más conveniente
+			try {
 				professionalService.saveAndUpdateProfessional(professionalDTO);
-			} catch (DataIntegrityViolationException e) {
-				bindingResult.reject("",
-						"El tipo y número de documento y/o email ya están registrados en otro profesional");
-				LOGGER.debug("An exception occurred while trying to save a professional, details:", e);
+			} catch ( DuplicateKeyException e) {
+				CONSOLE.warn("Professional could not be saved: {}", e.getMessage());
+				LOGGER.warn("An exception occurred while trying to save a professional:", e);
+				model.addAttribute("errorMessage", e.getMessage());
 				return PROFESSIONAL_FORM;
 			}
-			return "professional-form-result"; // en realidad tendría que ser un mensaje en la misma página
+			model.addAttribute("successMessage",
+					"Profesional: " + professionalDTO.getSurname() + ", " + professionalDTO.getName() + " guardado!");
+			return listAllProfessionals(model);
 		}
 	}
 
 	@GetMapping("/delete")
-	public String deleteProfessional(@RequestParam(value = "id", required = true) long id) {
+	public String deleteProfessional(@RequestParam(value = "id", required = true) long id, Model model) {
 		LOGGER.debug("Processing 'deleteProfessional' request");
+		ProfessionalDTO professionalDTO = professionalService.findProfessional(id);
+		if (professionalDTO == null) {
+			LOGGER.info("Professional with id {} was not found", id);
+			model.addAttribute("errorMessage", "Error! No se encontró el profesional a eliminar.");
+			return listAllProfessionals(model);
+		}
 		professionalService.removeProfessional(id);
-		return "redirect:/professional/list";
+		model.addAttribute("successMessage",
+				"Profesional: " + professionalDTO.getSurname() + ", " + professionalDTO.getName() + " eliminado!");
+		return listAllProfessionals(model);
 	}
 }

@@ -95,6 +95,7 @@ public class ClientController {
 		LOGGER.debug("Processing 'removeClient' request with id: {}", id);
 		ClientDTO client = clientService.findClient(id);
 		if (client == null) {
+			LOGGER.info("Client with id {} was not found", id);
 			model.addAttribute("errorMessage", "Error! No se encontró el cliente a eliminar.");
 			return listClients(model);
 		} else {

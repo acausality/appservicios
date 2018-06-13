@@ -14,7 +14,12 @@
 	<!-- Navbar -->
 	<div th:replace="fragments/navbar :: navbar"></div>
 	<div class="container content">
-		<div th:if="${successMessage!=null}" class="alert alert-success" th:text="${successMessage}"></div>
+		<div th:if="${successMessage!=null}" class="alert alert-success alert-dismissible">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span th:text="${successMessage}"></span>
+		</div>
+		<div th:if="${errorMessage!=null}" class="alert alert-danger alert-dismissible">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span th:text="${errorMessage}"></span>
+		</div>
 		<div class="formulario">
 			<div class="row">
 				<div class="col-sm-8">
