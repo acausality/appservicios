@@ -1,7 +1,11 @@
 package api.grupo.appservicios.model.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @MappedSuperclass
 public abstract class Person {
@@ -20,6 +24,9 @@ public abstract class Person {
 	protected String phoneNumber;
 	@Column(name = "email", length = 100, nullable = false)
 	protected String email;
+	@Column(name = "signup_date", nullable = false)
+	@CreationTimestamp
+	protected LocalDate signupDate;
 
 	public Person(String name, String surname, String identityType, String identityNumber, String address,
 			String phoneNumber, String email) {
@@ -90,6 +97,14 @@ public abstract class Person {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}	
+	
+	public LocalDate getSignupDate() {
+		return signupDate;
+	}
+
+	public void setSignupDate(LocalDate signupDate) {
+		this.signupDate = signupDate;
 	}
 
 	// Usado para comparaciones principalmente
