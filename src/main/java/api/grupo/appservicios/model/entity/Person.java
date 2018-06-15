@@ -24,7 +24,7 @@ public abstract class Person {
 	protected String phoneNumber;
 	@Column(name = "email", length = 100, nullable = false)
 	protected String email;
-	@Column(name = "signup_date", nullable = false)
+	@Column(name = "signup_date", nullable = false, updatable = false)
 	@CreationTimestamp
 	protected LocalDate signupDate;
 
