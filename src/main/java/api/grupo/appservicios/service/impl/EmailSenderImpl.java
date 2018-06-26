@@ -6,7 +6,7 @@ import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.MultiPartEmail;
 
-public class EmailSender {
+public class EmailSenderImpl {
 
 	public static void main(String[] args) throws Exception {
 
