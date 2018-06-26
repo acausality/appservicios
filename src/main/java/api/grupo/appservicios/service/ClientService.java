@@ -18,4 +18,6 @@ public interface ClientService {
 	ClientDTO findClient(long id);
 
 	void removeClient(long id);
+	
+	List<ClientDTO> listClientsSignedUpToday();
 }

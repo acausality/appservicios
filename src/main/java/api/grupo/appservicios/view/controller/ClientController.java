@@ -51,6 +51,15 @@ public class ClientController {
 
 		return LIST_CLIENTS;
 	}
+	
+	// Listado de clientes que se registraron hoy
+	@GetMapping("/listToday")
+	public String listClientsSignedUpToday(Model model) {
+		logger.info("Inside listClients");
+		model.addAttribute("clients", clientService.listClientsSignedUpToday());
+
+		return LIST_CLIENTS;
+	}
 
 	// Crear cliente nuevo o modificar existente
 	@PostMapping("/save")
