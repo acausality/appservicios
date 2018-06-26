@@ -1,6 +1,8 @@
 package api.grupo.appservicios.service;
 
 public interface EmailSender {
+	//Empezar a construir un email
+	void beginBuilding();
 	//Setear asunto
 	void setSubject(String subject);
 	//Setear email de destino
