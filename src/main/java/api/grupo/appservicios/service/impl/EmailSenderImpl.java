@@ -1,12 +1,18 @@
 package api.grupo.appservicios.service.impl;
 
+import java.io.File;
 import java.net.URL;
+import java.util.List;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.MultiPartEmail;
+import org.springframework.stereotype.Service;
 
-public class EmailSenderImpl {
+import api.grupo.appservicios.service.EmailSenderService;
+
+@Service
+public class EmailSenderImpl implements EmailSenderService {
 
 	public static void main(String[] args) throws Exception {
 
@@ -58,5 +64,13 @@ public class EmailSenderImpl {
 		}
 
 	}
+
+	@Override
+	public void sendEmail(String subject, String body, List<File> attachments, String destination) {
+		// TODO Auto-generated method stub
+		System.out.println("enviando mail!");
+	}
+	
+	
 
 }
