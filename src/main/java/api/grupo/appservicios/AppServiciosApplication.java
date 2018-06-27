@@ -36,7 +36,7 @@ public class AppServiciosApplication {
 	public Trigger dailyReportTrigger(@Value("${dailyreport.hour}") int hour,
 			@Value("${dailyreport.minutes}") int minutes) {
 		// Para experimentar. Ejecuta la tarea cada 5 segundos
-		// CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 * * * ?");
+		// CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 * * * * ?");
 		CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.dailyAtHourAndMinute(hour, minutes);
 		return TriggerBuilder.newTrigger().forJob(dailyReportJobDetail()).withSchedule(scheduleBuilder).build();
 	}
