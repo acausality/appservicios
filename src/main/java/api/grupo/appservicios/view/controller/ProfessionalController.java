@@ -1,5 +1,7 @@
 package api.grupo.appservicios.view.controller;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import api.grupo.appservicios.model.dto.ProfessionalDTO;
+import api.grupo.appservicios.model.excel.ExcelBuilder;
 import api.grupo.appservicios.service.ProfessionalService;
 
 @Controller
@@ -23,8 +26,20 @@ import api.grupo.appservicios.service.ProfessionalService;
 public class ProfessionalController {
 	private static final String PROFESSIONALS_LIST = "professionals-list";
 	private static final String PROFESSIONAL_FORM = "professional-form";
-	
+
+	/**
+	 * Está referenciado a dos apéndices(uno de tipo RollingFile y otro de tipo
+	 * Console): se encarga de loguear a un archivo a partir del threshold TRACE,
+	 * mientras que el apéndice Console imprime los mensajes de threshold INFO y
+	 * sólo INFO de los subpackages api.grupo.appservicios.
+	 */
 	private static final Logger LOGGER = LogManager.getLogger(ProfessionalController.class);
+	/**
+	 * Únicamente imprime los mensajes por consola. Razón: En caso de tener que
+	 * loguear una excepción, no es necesario mostrar el stacktrace por consola. Es
+	 * decir, hace un "aviso" utilizando el mismo level y en caso de necesitar más
+	 * detalles se recurre al log.
+	 */
 	private static final Logger CONSOLE = LogManager.getLogger("api.grupo.appservicios.ProfessionalController");
 
 	@Autowired
@@ -57,7 +72,7 @@ public class ProfessionalController {
 		} else {
 			try {
 				professionalService.saveAndUpdateProfessional(professionalDTO);
-			} catch ( DuplicateKeyException e) {
+			} catch (DuplicateKeyException e) {
 				CONSOLE.warn("Professional could not be saved: {}", e.getMessage());
 				LOGGER.warn("An exception occurred while trying to save a professional:", e);
 				model.addAttribute("errorMessage", e.getMessage());
@@ -82,5 +97,17 @@ public class ProfessionalController {
 		model.addAttribute("successMessage",
 				"Profesional: " + professionalDTO.getSurname() + ", " + professionalDTO.getName() + " eliminado!");
 		return listAllProfessionals(model);
+	}
+	
+	@GetMapping("/create-excel")
+	public String createExcel(Model model) {
+		try {
+			ExcelBuilder.buildProfessionalList(professionalService.listAllProfessionals());
+		} catch (IOException e) {
+			LOGGER.error("An error occurred while trying to create a professional list file:" + e);
+			CONSOLE.error("An error occurred while trying to create a professional list file.");
+		}
+		model.addAttribute("professionals", professionalService.listAllProfessionals());
+		return PROFESSIONALS_LIST;
 	}
 }

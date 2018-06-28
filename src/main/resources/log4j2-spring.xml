@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
 	<Properties>
-		<Property name="LOG_PATTERN">[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}:%L - %msg%n</Property>
+		<Property name="LOG_PATTERN">[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}:%L - %msg%n%ex{full}</Property>
 		<Property name="PATH">./logs</Property>
 		<Property name="clientController">ClientController</Property>
 		<Property name="professionalController">ProfessionalController</Property>
@@ -14,7 +14,7 @@
 		<Console name="onlyConsole" target="SYSTEM_OUT">
 			<PatternLayout pattern="${LOG_PATTERN}"/>
 		</Console>
-		<RollingFile name="file" fileName="${PATH}/AppServicios.log" filePattern="${PATH}/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+		<RollingFile name="file" fileName="${PATH}/AppServicios.log" filePattern="${PATH}/{date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log">
 			<PatternLayout pattern="${LOG_PATTERN}"/>
 			<Policies>
 				<SizeBasedTriggeringPolicy size="10 MB"/>
