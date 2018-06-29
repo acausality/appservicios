@@ -64,6 +64,13 @@ public class ClientController {
 	public String listClients(Model model) {
 		LOGGER.debug("Processing 'listClients' request");
 		model.addAttribute("clients", clientService.listClients());
+		return LIST_CLIENTS;
+	}
+	
+	// Listado de clientes que se registraron hoy
+	@GetMapping("/listToday")
+	public String listClientsSignedUpToday(Model model) {
+		model.addAttribute("clients", clientService.listClientsSignedUpToday());
 
 		return LIST_CLIENTS;
 	}

@@ -1,5 +1,6 @@
 package api.grupo.appservicios.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,16 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public List<ClientDTO> listClients() {
 		List<Client> clients = clientDAO.findAll();
+		List<ClientDTO> result = new ArrayList<ClientDTO>();
+		for (Client client : clients)
+			result.add(ClientMapper.INSTANCE.clientToDTO(client));
+
+		return result;
+	}
+	
+	@Override
+	public List<ClientDTO> listClientsSignedUpToday() {
+		List<Client> clients = clientDAO.findBySignupDate(LocalDate.now());
 		List<ClientDTO> result = new ArrayList<ClientDTO>();
 		for (Client client : clients)
 			result.add(ClientMapper.INSTANCE.clientToDTO(client));

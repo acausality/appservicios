@@ -65,11 +65,13 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>2.0.0.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
+		
 		<!-- log4j2 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
+		
 		<!-- apache poi -->
 		<!-- Used to work with the older excel file format - '.xls' -->
 		<dependency>
@@ -84,7 +86,19 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.17</version>
 		</dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-quartz</artifactId>
+			<version>2.0.3.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>

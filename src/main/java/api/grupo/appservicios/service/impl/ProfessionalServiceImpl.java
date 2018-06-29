@@ -1,5 +1,6 @@
 package api.grupo.appservicios.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,15 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 	@Override
 	public List<ProfessionalDTO> listAllProfessionals() {
 		List<Professional> professionals = professionalDAO.findAll();
+		List<ProfessionalDTO> professionalDTOs = new ArrayList<>();
+		for (Professional professional : professionals)
+			professionalDTOs.add(ProfessionalMapper.INSTANCE.professionalToDTO(professional));
+		return professionalDTOs;
+	}
+	
+	@Override
+	public List<ProfessionalDTO> listProfessionalsSignedUpToday() {
+		List<Professional> professionals = professionalDAO.findBySignupDate(LocalDate.now());
 		List<ProfessionalDTO> professionalDTOs = new ArrayList<>();
 		for (Professional professional : professionals)
 			professionalDTOs.add(ProfessionalMapper.INSTANCE.professionalToDTO(professional));

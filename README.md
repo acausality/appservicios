@@ -7,7 +7,8 @@ Pasos para instalar:
 3. Importar repositorio en Eclipse (Con spring tools instalado) o Spring Tool Suite: github.com/acausality/appservicios
 4. Importar el proyecto desde el repositorio como proyecto general
 5. Convertir a proyecto maven (click derecho en el proyecto -> configure -> convert to maven project)
-6. Deberian descargarse todas las dependencias necesarias. De no ser asi, click derecho en el proyecto -> maven -> update (o mvn clean install por consola)
+6. Deberian descargarse todas las dependencias necesarias. De no ser asi, click derecho en el proyecto -> maven -> update
+7. Correr maven con los goals clean install, para generar las clases utilizadas por MapStruct
 
 Para ejecutar: 
 1. Abrir el Boot Dashboard en Eclipse o STS, seleccionar "appservicios", y darle (Re)start para iniciar el servidor.

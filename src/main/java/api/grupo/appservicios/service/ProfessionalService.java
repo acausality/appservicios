@@ -13,4 +13,6 @@ public interface ProfessionalService {
 	public abstract void removeProfessional(long id);
 
 	public abstract ProfessionalDTO findProfessional(long id);
+	
+	public List<ProfessionalDTO> listProfessionalsSignedUpToday();
 }
