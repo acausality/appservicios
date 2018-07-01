@@ -36,5 +36,11 @@ public class Professional extends Person {
 		this.id = id;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Professional [id=" + id + ", name=" + name + ", surname=" + surname + ", identityType=" + identityType
+				+ ", identityNumber=" + identityNumber + ", address=" + address + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + "]";
+	}
+
 }

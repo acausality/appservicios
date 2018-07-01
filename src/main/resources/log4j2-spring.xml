@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="LOG_PATTERN">[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}:%L - %msg%n%ex{full}</Property>
+		<Property name="PATH">./logs</Property>
+		<Property name="clientController">ClientController</Property>
+		<Property name="professionalController">ProfessionalController</Property>
+	</Properties>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+		</Console>
+		<Console name="onlyConsole" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+		</Console>
+		<RollingFile name="file" fileName="${PATH}/AppServicios.log" filePattern="${PATH}/{date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="20"/>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="api.grupo.appservicios" level="trace" additivity="false">
+			<AppenderRef ref="file"/>
+			<AppenderRef ref="console" level="info"/>
+		</Logger>
+		<Logger name="api.grupo.appservicios.${clientController}" level="info" additivity="false">
+			<AppenderRef ref="onlyConsole"/>
+		</Logger>
+		<Logger name="api.grupo.appservicios.${professionalController}" level="info" additivity="false">
+			<AppenderRef ref="onlyConsole"/>
+		</Logger>
+		<!-- Enable log for hibernate -->
+		<!-- <Logger name="org.hibernate" level="debug"></Logger> -->
+ 		<!-- Enable log for spring boot -->
+		<!-- <Loggern name="org.springframework.boot" level="debug"></Logger> -->
+		<Root level="info">
+			<AppenderRef ref="console"/>
+		</Root>
+	</Loggers>
+</Configuration>

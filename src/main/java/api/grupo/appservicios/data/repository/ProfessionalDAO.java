@@ -14,10 +14,11 @@ public interface ProfessionalDAO extends JpaRepository<Professional, Serializabl
 
 	public abstract Professional findById(long id);
 
-	public abstract Professional findByIdentityTypeAndIdentityNumber(String identityType, String identityNumber);
+	public abstract boolean existsByIdentityTypeAndIdentityNumber(String identityType, String identityNumber);
+
+	public abstract boolean existsByEmail(String email);
 
 	public abstract Professional findByEmail(String email);
 
 	public abstract List<Professional> findBySignupDate(LocalDate date);
-
 }

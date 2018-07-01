@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,7 +21,9 @@ import api.grupo.appservicios.service.ClientService;
 
 @Service
 public class ClientServiceImpl implements ClientService {
-
+	
+	private static final Logger LOGGER = LogManager.getLogger();
+	
 	@Autowired
 	ClientDAO clientDAO;
 
@@ -46,11 +50,8 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public void saveClient(@Valid ClientDTO clientDTO) throws DuplicateKeyException, EmptyResultDataAccessException {
 		Client newClientData = ClientMapper.INSTANCE.DTOToClient(clientDTO);
-		System.out.println(clientDTO);
-		System.out.println(newClientData);
 		Client currentClientData = clientDAO.findById(newClientData.getId());
 		boolean isCreation = (newClientData.getId() == 0);
-		System.out.println("creation: " + isCreation);
 		// Verificar que es una creacion de cliente nuevo, o bien existe el cliente a
 		// modificar
 		if (!isCreation && currentClientData == null)
@@ -71,6 +72,7 @@ public class ClientServiceImpl implements ClientService {
 		}
 		// Si no se dio ninguna de las excepciones anteriores, guardar el cliente
 		clientDAO.save(newClientData);
+		LOGGER.info("Saved client with id: {}", newClientData.getId());
 	}
 
 	@Override
@@ -84,8 +86,10 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public void removeClient(long id) {
-		if (clientDAO.existsById(id))
+		if (clientDAO.existsById(id)) {
 			clientDAO.deleteById(id);
+			LOGGER.info("Client with id {} removed", id);
+		}
 	}
 
 }

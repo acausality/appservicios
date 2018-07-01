@@ -45,7 +45,7 @@ public class EmailSenderImpl implements EmailSenderService {
 			email.setSSLOnConnect(true);
 			email.setStartTLSEnabled(true);
 			// Usar cuenta de Gmail y contraseña
-			email.setAuthenticator(new DefaultAuthenticator(userName, password));
+			//email.setAuthenticator(new DefaultAuthenticator(userName, password));
 			// Cuenta de Email Origen, la misma con la que nos autenticamos
 			email.setFrom(fromAddress, "App Servicios");
 			// Asunto del Email

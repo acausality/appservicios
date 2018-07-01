@@ -44,6 +44,7 @@ public class AppServiciosApplication {
 	@Bean
 	public Trigger hourlyEmailTrigger() {
 		// Ejecutar una vez por hora
+		// CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 * * * * ?");
 		CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 * * * ?");
 		return TriggerBuilder.newTrigger().forJob(hourlyEmailJobDetail()).withSchedule(scheduleBuilder).build();
 	}

@@ -2,10 +2,10 @@ package api.grupo.appservicios.view.controller;
 
 import javax.validation.Valid;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,17 +21,30 @@ import api.grupo.appservicios.service.ProfessionalService;
 @Controller
 @RequestMapping("/professional")
 public class ProfessionalController {
-
-	private static final Log LOG = LogFactory.getLog(ProfessionalController.class);
 	private static final String PROFESSIONALS_LIST = "professionals-list";
 	private static final String PROFESSIONAL_FORM = "professional-form";
-	// private static final String SUCCESS_MESSAGE = "success-message";
+
+	/**
+	 * Está referenciado a dos apéndices(uno de tipo RollingFile y otro de tipo
+	 * Console): se encarga de loguear a un archivo a partir del threshold TRACE,
+	 * mientras que el apéndice Console imprime los mensajes de threshold INFO y
+	 * sólo INFO de los subpackages api.grupo.appservicios.
+	 */
+	private static final Logger LOGGER = LogManager.getLogger(ProfessionalController.class);
+	/**
+	 * Únicamente imprime los mensajes por consola. Razón: En caso de tener que
+	 * loguear una excepción, no es necesario mostrar el stacktrace por consola. Es
+	 * decir, hace un "aviso" utilizando el mismo level y en caso de necesitar más
+	 * detalles se recurre al log.
+	 */
+	private static final Logger CONSOLE = LogManager.getLogger("api.grupo.appservicios.ProfessionalController");
 
 	@Autowired
 	private ProfessionalService professionalService;
 
 	@GetMapping("/list")
 	public String listAllProfessionals(Model model) {
+		LOGGER.debug("Processing 'listAllProfessionals' request");
 		model.addAttribute("professionals", professionalService.listAllProfessionals());
 		return PROFESSIONALS_LIST;
 	}
@@ -48,25 +61,38 @@ public class ProfessionalController {
 
 	@PostMapping("/add")
 	public String addProfessional(@Valid @ModelAttribute("professional") ProfessionalDTO professionalDTO,
-			BindingResult bindingResult) {
+			BindingResult bindingResult, Model model) {
+		LOGGER.debug("Processing 'addProfessional' request");
 		if (bindingResult.hasErrors()) {
-			LOG.info("Result: " + bindingResult.toString());
+			LOGGER.info("Failed to validate professional: {}", bindingResult);
 			return PROFESSIONAL_FORM;
 		} else {
-			try { // no es lo más conveniente
+			try {
 				professionalService.saveAndUpdateProfessional(professionalDTO);
-			} catch (DataIntegrityViolationException e) {
-				bindingResult.reject("",
-						"El tipo y número de documento y/o email ya están registrados en otro profesional");
+			} catch (DuplicateKeyException e) {
+				CONSOLE.warn("Professional could not be saved: {}", e.getMessage());
+				LOGGER.warn("An exception occurred while trying to save a professional:", e);
+				model.addAttribute("errorMessage", e.getMessage());
 				return PROFESSIONAL_FORM;
 			}
-			return "professional-form-result"; // en realidad tendría que ser un mensaje en la misma página
+			model.addAttribute("successMessage",
+					"Profesional: " + professionalDTO.getSurname() + ", " + professionalDTO.getName() + " guardado!");
+			return listAllProfessionals(model);
 		}
 	}
 
 	@GetMapping("/delete")
-	public String deleteProfessional(@RequestParam(value = "id", required = true) long id) {
+	public String deleteProfessional(@RequestParam(value = "id", required = true) long id, Model model) {
+		LOGGER.debug("Processing 'deleteProfessional' request");
+		ProfessionalDTO professionalDTO = professionalService.findProfessional(id);
+		if (professionalDTO == null) {
+			LOGGER.info("Professional with id {} was not found", id);
+			model.addAttribute("errorMessage", "Error! No se encontró el profesional a eliminar.");
+			return listAllProfessionals(model);
+		}
 		professionalService.removeProfessional(id);
-		return "redirect:/professional/list";
+		model.addAttribute("successMessage",
+				"Profesional: " + professionalDTO.getSurname() + ", " + professionalDTO.getName() + " eliminado!");
+		return listAllProfessionals(model);
 	}
 }
