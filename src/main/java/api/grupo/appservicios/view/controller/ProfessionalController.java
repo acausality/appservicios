@@ -1,7 +1,5 @@
 package api.grupo.appservicios.view.controller;
 
-import java.io.IOException;
-
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import api.grupo.appservicios.model.dto.ProfessionalDTO;
-import api.grupo.appservicios.model.excel.ExcelBuilder;
 import api.grupo.appservicios.service.ProfessionalService;
 
 @Controller
@@ -97,17 +94,5 @@ public class ProfessionalController {
 		model.addAttribute("successMessage",
 				"Profesional: " + professionalDTO.getSurname() + ", " + professionalDTO.getName() + " eliminado!");
 		return listAllProfessionals(model);
-	}
-	
-	@GetMapping("/create-excel")
-	public String createExcel(Model model) {
-		try {
-			ExcelBuilder.buildProfessionalList(professionalService.listAllProfessionals());
-		} catch (IOException e) {
-			LOGGER.error("An error occurred while trying to create a professional list file:" + e);
-			CONSOLE.error("An error occurred while trying to create a professional list file.");
-		}
-		model.addAttribute("professionals", professionalService.listAllProfessionals());
-		return PROFESSIONALS_LIST;
 	}
 }

@@ -1,67 +1,56 @@
 package api.grupo.appservicios.service.scheduled.cron;
 
 import java.io.File;
-import java.io.PrintWriter;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import api.grupo.appservicios.model.dto.ClientDTO;
-import api.grupo.appservicios.model.dto.ProfessionalDTO;
+import api.grupo.appservicios.model.excel.ExcelBuilder;
 import api.grupo.appservicios.service.ClientService;
 import api.grupo.appservicios.service.ProfessionalService;
+import api.grupo.appservicios.view.controller.ClientController;
 
 public class DailyReportGenerationCronJob extends QuartzJobBean {
+	private static final Logger LOGGER = LogManager.getLogger(ClientController.class);
+	private static final Logger CONSOLE = LogManager.getLogger("api.grupo.appservicios.DailyReportGenerationCronJob");
+
 	@Autowired
 	ClientService clientService;
 
 	@Autowired
 	ProfessionalService professionalService;
-	
+
 	@Value("${dailyreport.path.pending}")
 	String reportFolderPath;
 
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		// Obtener listado de clientes registrados en el dia
-		List<ClientDTO> clients = clientService.listClientsSignedUpToday();
-		int clientCount = clients.size();
-		// Obtener listado de profesionales registrados en el dia
-		List<ProfessionalDTO> professionals = professionalService.listProfessionalsSignedUpToday();
-		int professionalCount = professionals.size();
-		// TODO: Crear archivo XLS con los reportes, guardarlo en la carpeta reports/pending
+		LOGGER.debug("Generating daily report...");
 		try {
-			File reportFolder = new File(reportFolderPath);
-			if (reportFolder.exists()) {
-				//TODO xls con Apache Poi
-				String fileName = reportFolderPath + "/DailySignupReport-" + LocalDate.now().toString() + ".txt";
-				if (!new File(fileName).exists())
-				{
-					PrintWriter writer = new PrintWriter(fileName);
-					writer.println("Reporte diario de altas de usuarios");
-					writer.println("~~~~~~~");
-					writer.println("~~~~~~~");
-					writer.println("Se dieron de alta " + clientCount + " clientes: ");
-					for (ClientDTO client: clients) {
-						writer.println("-" + client.getName() + " " + client.getSurname() + " " + client.getEmail());
-					}
-					writer.println("~~~~~~~");
-					writer.println("Se dieron de alta " + professionalCount + " profesionales: ");
-					for (ProfessionalDTO professional: professionals) {
-						writer.println("-" + professional.getName() + " " + professional.getSurname() + " " + professional.getEmail());
-					}
-					writer.close();
-					System.out.println("Debug: Reporte diario generado.");
-				}
+			File file = new File(reportFolderPath + "/DailySignupReport-" + LocalDate.now().toString() + ".xlsx");
+
+			if (!file.exists()) {
+				if (!new File(reportFolderPath).exists())
+					file.getParentFile().mkdirs();
+				file.createNewFile();
 			}
-		} catch (Exception e) {
-			// TODO: Loggear la excepcion
-			e.printStackTrace();
+
+			if (!file.isDirectory()) {
+				ExcelBuilder.build(clientService.listClientsSignedUpToday(),
+						professionalService.listProfessionalsSignedUpToday(), file);
+				LOGGER.info("Daily report generated");
+			}
+		} catch (IOException e) {
+			LOGGER.error("An error occurred while trying to create a report file:" + e);
+			CONSOLE.error(
+					"An error occurred while trying to create a report file. Please check the log for detailed information.");
 		}
 	}
 

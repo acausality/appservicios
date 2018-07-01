@@ -50,8 +50,6 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public void saveClient(@Valid ClientDTO clientDTO) throws DuplicateKeyException, EmptyResultDataAccessException {
 		Client newClientData = ClientMapper.INSTANCE.DTOToClient(clientDTO);
-		System.out.println(clientDTO);
-		System.out.println(newClientData);
 		Client currentClientData = clientDAO.findById(newClientData.getId());
 		boolean isCreation = (newClientData.getId() == 0);
 		// Verificar que es una creacion de cliente nuevo, o bien existe el cliente a

@@ -1,7 +1,5 @@
 package api.grupo.appservicios.view.controller;
 
-import java.io.IOException;
-
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import api.grupo.appservicios.model.dto.ClientDTO;
-import api.grupo.appservicios.model.excel.ExcelBuilder;
 import api.grupo.appservicios.service.ClientService;
 
 @Controller
@@ -66,7 +63,7 @@ public class ClientController {
 		model.addAttribute("clients", clientService.listClients());
 		return LIST_CLIENTS;
 	}
-	
+
 	// Listado de clientes que se registraron hoy
 	@GetMapping("/listToday")
 	public String listClientsSignedUpToday(Model model) {
@@ -126,19 +123,6 @@ public class ClientController {
 					"Cliente: " + client.getSurname() + ", " + client.getName() + " eliminado!");
 			return listClients(model);
 		}
-	}
-
-	@GetMapping("/create-excel")
-	public String createExcel(Model model) {
-		try {
-			ExcelBuilder.buildClientList(clientService.listClients());
-		} catch (IOException e) {
-			LOGGER.error("An error occurred while trying to create a client list file:" + e);
-			CONSOLE.error("An error occurred while trying to create a client list file.");
-		}
-		model.addAttribute("clients", clientService.listClients());
-		return LIST_CLIENTS;
-		// return new ModelAndView("excelView", "clientList", clientService.listClients());
 	}
 
 }
