@@ -67,7 +67,7 @@ public class EmailSenderCronJob extends QuartzJobBean {
 		} catch (Exception e) {
 			LOGGER.error("An error occurred while trying to send the daily report email:" + e);
 			CONSOLE.error(
-					"An error occurred while trying to send the daily report email. Please check the log for detailed information.");
+					"An error occurred while trying to send the daily report email. Please check the log file for detailed information.");
 		}
 	}
 

@@ -50,7 +50,7 @@ public class DailyReportGenerationCronJob extends QuartzJobBean {
 		} catch (IOException e) {
 			LOGGER.error("An error occurred while trying to create a report file:" + e);
 			CONSOLE.error(
-					"An error occurred while trying to create a report file. Please check the log for detailed information.");
+					"An error occurred while trying to create a report file. Please check the log file for detailed information.");
 		}
 	}
 
