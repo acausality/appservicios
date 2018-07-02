@@ -21,7 +21,7 @@ import api.grupo.appservicios.view.controller.ClientController;
 
 public class EmailSenderCronJob extends QuartzJobBean {
 	private static final Logger LOGGER = LogManager.getLogger(ClientController.class);
-	private static final Logger CONSOLE = LogManager.getLogger("api.grupo.appservicios.DailyReportGenerationCronJob");
+	private static final Logger CONSOLE = LogManager.getLogger("api.grupo.appservicios.EmailSenderCronJob");
 
 	@Autowired
 	EmailSenderService emailSenderService;
