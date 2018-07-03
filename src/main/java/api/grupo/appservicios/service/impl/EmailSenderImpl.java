@@ -4,7 +4,10 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,8 @@ import api.grupo.appservicios.service.EmailSenderService;
 
 @Service
 public class EmailSenderImpl implements EmailSenderService {
+
+	private static final Logger LOGGER = LogManager.getLogger(EmailSenderImpl.class);
 
 	@Value("${emailsender.account.username}")
 	String username;
@@ -32,8 +37,9 @@ public class EmailSenderImpl implements EmailSenderService {
 	String startTLS;
 
 	@Override
-	public void sendEmail(String subject, String body, List<File> attachments, String destination) {
-
+	public void sendEmail(String subject, String body, List<File> attachments, String destination)
+			throws EmailException {
+		LOGGER.info("Attempting to send an email with subject: [" + subject + "] to address: [" + destination + "]");
 		try {
 			MultiPartEmail email = new MultiPartEmail();
 
@@ -64,13 +70,13 @@ public class EmailSenderImpl implements EmailSenderService {
 
 			// Enviar email
 			email.send();
-
+			LOGGER.info("Email sent.");
+		} catch (EmailException ee) {
+			LOGGER.error("There was a problem sending the e-mail: " + ee);
+			throw ee;
 		} catch (Exception e) {
-			// TODO: handle exception
+			LOGGER.error("There was a problem sending the e-mail: " + e);
 		}
-
-		// TODO Auto-generated method stub
-		System.out.println("enviando mail!");
 	}
 
 }
