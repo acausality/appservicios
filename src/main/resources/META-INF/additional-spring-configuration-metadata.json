@@ -1,0 +1,67 @@
+{"properties": [
+  {
+    "name": "dailyreport.hour",
+    "type": "java.lang.String",
+    "description": "Hora en la que se deben generar los reportes diarios."
+  },
+  {
+    "name": "dailyreport.minutes",
+    "type": "java.lang.String",
+    "description": "Minuto en el que se deben generar los reportes diarios. (usado en combinacion con dailyreport.hour)"
+  },
+  {
+    "name": "dailyreport.path.pending",
+    "type": "java.lang.String",
+    "description": "Ruta de la carpeta donde se deben guardar los reportes pendientes de envio. Es critico que no sea la misma carpeta que los reportes enviados."
+  },
+  {
+    "name": "dailyreport.path.sent",
+    "type": "java.lang.String",
+    "description": "Ruta de la carpeta donde se deben guardar los reportes enviados. Es critico que no sea la misma carpeta que los reportes pendientes."
+  },
+  {
+    "name": "dailyreport.destination",
+    "type": "java.lang.String",
+    "description": "Direccion de e-mail del destinatario de los reportes diarios."
+  },
+  {
+    "name": "emailsender.account.username",
+    "type": "java.lang.String",
+    "description": "Nombre de usuario para el inicio de sesion de la cuenta de email."
+  },
+  {
+    "name": "emailsender.account.password",
+    "type": "java.lang.String",
+    "description": "Contrase�a para el inicio de sesion en la cuenta de email."
+  },
+  {
+    "name": "emailsender.hostname",
+    "type": "java.lang.String",
+    "description": "Hostname de la cuenta de email. (ejemplo: smtp.ejemplo.com)"
+  },
+  {
+    "name": "emailsender.smtpport",
+    "type": "java.lang.String",
+    "description": "Puerto del servidor de mail."
+  },
+  {
+    "name": "emailsender.ssl",
+    "type": "java.lang.String",
+    "description": "Usar ssl para autenticacion de email? (true/false)"
+  },
+  {
+    "name": "emailsender.starttls",
+    "type": "java.lang.String",
+    "description": "Usar tls para autenticacion de email? (true/false)"
+  },
+  {
+    "name": "log.email.protocol",
+    "type": "java.lang.String",
+    "description": "Protocolo usado para el envio de emails cuando ocurre un log de nivel fatal. Ejemplo: smtps (con ssl), smtp (sin ssl)"
+  },
+  {
+    "name": "log.email.destination",
+    "type": "java.lang.String",
+    "description": "Direccion de e-mail del destinatario de los logs fatales."
+  }
+]}
