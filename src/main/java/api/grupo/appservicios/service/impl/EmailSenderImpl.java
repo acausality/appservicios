@@ -16,7 +16,23 @@ import api.grupo.appservicios.service.EmailSenderService;
 @Service
 public class EmailSenderImpl implements EmailSenderService {
 
+	/**
+	 * Está referenciado a tres apéndices(uno de tipo RollingFile, otro de tipo
+	 * Console, y uno de tipo Smtp): se encarga de loguear a un archivo a partir
+	 * del threshold TRACE, mientras que el apéndice Console imprime los mensajes
+	 * de threshold INFO y sólo INFO de los subpackages api.grupo.appservicios.
+	 * Si se da un log de nivel FATAL, se envía un email según la configuración
+	 * del archivo properties. 
+	 */
 	private static final Logger LOGGER = LogManager.getLogger(EmailSenderImpl.class);
+	
+	/**
+	 * Únicamente imprime los mensajes por consola. Razón: En caso de tener que
+	 * loguear una excepción, no es necesario mostrar el stacktrace por consola. Es
+	 * decir, hace un "aviso" utilizando el mismo level y en caso de necesitar más
+	 * detalles se recurre al log. Para logs de nivel INFO, basta con el otro logger.
+	 */
+	private static final Logger CONSOLE = LogManager.getLogger("api.grupo.appservicios.emailSenderImpl");
 
 	@Value("${emailsender.account.username}")
 	String username;
@@ -72,9 +88,11 @@ public class EmailSenderImpl implements EmailSenderService {
 			email.send();
 			LOGGER.info("Email sent.");
 		} catch (EmailException ee) {
+			CONSOLE.error("There was a problem sending the e-mail. Check the log file for details.");
 			LOGGER.error("There was a problem sending the e-mail: " + ee);
 			throw ee;
 		} catch (Exception e) {
+			CONSOLE.error("There was a problem sending the e-mail. Check the log file for details.");
 			LOGGER.error("There was a problem sending the e-mail: " + e);
 		}
 	}

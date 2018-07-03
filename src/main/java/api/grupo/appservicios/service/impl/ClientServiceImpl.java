@@ -22,6 +22,14 @@ import api.grupo.appservicios.service.ClientService;
 @Service
 public class ClientServiceImpl implements ClientService {
 	
+	/**
+	 * Está referenciado a tres apéndices(uno de tipo RollingFile, otro de tipo
+	 * Console, y uno de tipo Smtp): se encarga de loguear a un archivo a partir
+	 * del threshold TRACE, mientras que el apéndice Console imprime los mensajes
+	 * de threshold INFO y sólo INFO de los subpackages api.grupo.appservicios.
+	 * Si se da un log de nivel FATAL, se envía un email según la configuración
+	 * del archivo properties. 
+	 */
 	private static final Logger LOGGER = LogManager.getLogger();
 	
 	@Autowired

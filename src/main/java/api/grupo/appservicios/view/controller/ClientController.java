@@ -30,17 +30,19 @@ public class ClientController {
 	private static final String SAVE_CLIENT_FORM = "client-form";
 
 	/**
-	 * Está referenciado a dos apéndices(uno de tipo RollingFile y otro de tipo
-	 * Console): se encarga de loguear a un archivo a partir del threshold TRACE,
-	 * mientras que el apéndice Console imprime los mensajes de threshold INFO y
-	 * sólo INFO de los subpackages api.grupo.appservicios.
+	 * Está referenciado a tres apéndices(uno de tipo RollingFile, otro de tipo
+	 * Console, y uno de tipo Smtp): se encarga de loguear a un archivo a partir
+	 * del threshold TRACE, mientras que el apéndice Console imprime los mensajes
+	 * de threshold INFO y sólo INFO de los subpackages api.grupo.appservicios.
+	 * Si se da un log de nivel FATAL, se envía un email según la configuración
+	 * del archivo properties. 
 	 */
 	private static final Logger LOGGER = LogManager.getLogger(ClientController.class);
 	/**
 	 * Únicamente imprime los mensajes por consola. Razón: En caso de tener que
 	 * loguear una excepción, no es necesario mostrar el stacktrace por consola. Es
 	 * decir, hace un "aviso" utilizando el mismo level y en caso de necesitar más
-	 * detalles se recurre al log.
+	 * detalles se recurre al log. Para logs de nivel INFO, basta con el otro logger.
 	 */
 	private static final Logger CONSOLE = LogManager.getLogger("api.grupo.appservicios.ClientController");
 
