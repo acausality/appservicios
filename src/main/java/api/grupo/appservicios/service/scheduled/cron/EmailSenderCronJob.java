@@ -37,32 +37,39 @@ public class EmailSenderCronJob extends QuartzJobBean {
 
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		// TODO
+		LOGGER.info("Executing task: e-mail pending reports.");
+		CONSOLE.info("Executing task: e-mail pending reports.");
 		sendPendingReports();
 	}
 
 	// Detecta si hay reportes pendientes de enviar, los envia, y los mueve a la
 	// carpeta de enviados
 	private void sendPendingReports() {
-		// TODO
 		File pendingFolder = new File(pendingReportFolderPath);
-
 		try {
 			//
 			List<File> files = Arrays.asList(pendingFolder.listFiles());
-			if (files.size() == 0)
-				System.out.println("No se detectaron reportes para enviar.");
+			if (files.size() == 0) {
+				LOGGER.info("0 pending reports found.");
+				CONSOLE.info("0 pending reports found.");
+				return;
+			}
+			LOGGER.info(files.size() + " pending reports found. Attempting to send e-mail...");
+			CONSOLE.info(files.size() + " pending reports found. Attempting to send e-mail...");
 			for (File file : files) {
 				emailSenderService.sendEmail("Report: " + file.getName(), "Report attached", Arrays.asList(file),
 						destination);
-				// TODO Se deberia verificar que se envio
 
 				// Mover el archivo a carpeta enviados
 				Path targetPath = Paths.get(sentReportFolderPath + File.separator + file.getName());
 				if (!targetPath.toFile().exists()) {
 					targetPath.toFile().mkdirs();
 				}
+				LOGGER.info("Report sent successfully: " + file.getName() + ". Moving file...");
+				CONSOLE.info("Report sent successfully: " + file.getName() + ". Moving file...");
 				Files.move(file.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+				LOGGER.info("File moved successfully.");
+				CONSOLE.info("File moved successfully.");
 			}
 		} catch (Exception e) {
 			LOGGER.error("An error occurred while trying to send the daily report email:" + e);

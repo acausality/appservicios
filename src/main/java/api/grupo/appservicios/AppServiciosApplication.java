@@ -35,16 +35,14 @@ public class AppServiciosApplication {
 	@Bean
 	public Trigger dailyReportTrigger(@Value("${dailyreport.hour}") int hour,
 			@Value("${dailyreport.minutes}") int minutes) {
-		// Para experimentar. Ejecuta la tarea cada 5 segundos
-		// CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 * * * * ?");
 		CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.dailyAtHourAndMinute(hour, minutes);
 		return TriggerBuilder.newTrigger().forJob(dailyReportJobDetail()).withSchedule(scheduleBuilder).build();
 	}
 	
+	//Disparador de tarea de envio de mails de reportes pendientes. Se hace una vez por hora.
 	@Bean
 	public Trigger hourlyEmailTrigger() {
 		// Ejecutar una vez por hora
-		// CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 * * * * ?");
 		CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 * * * ?");
 		return TriggerBuilder.newTrigger().forJob(hourlyEmailJobDetail()).withSchedule(scheduleBuilder).build();
 	}
