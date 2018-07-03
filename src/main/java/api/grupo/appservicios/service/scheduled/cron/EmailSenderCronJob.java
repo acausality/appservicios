@@ -70,8 +70,8 @@ public class EmailSenderCronJob extends QuartzJobBean {
 				Files.move(file.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 				LOGGER.info("File moved successfully.");
 			}
-		LOGGER.info("Finished sending reports.");
-		CONSOLE.info("Finished sending reports.");	
+			LOGGER.info("Finished sending reports.");
+			CONSOLE.info("Finished sending reports.");
 		} catch (EmailException ee) {
 			LOGGER.error("An error occurred while trying to send the daily report email:" + ee);
 			CONSOLE.error(
