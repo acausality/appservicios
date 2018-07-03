@@ -66,11 +66,11 @@ public class EmailSenderCronJob extends QuartzJobBean {
 					targetPath.toFile().mkdirs();
 				}
 				LOGGER.info("Report sent successfully: " + file.getName() + ". Moving file...");
-				CONSOLE.info("Report sent successfully: " + file.getName() + ". Moving file...");
 				Files.move(file.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 				LOGGER.info("File moved successfully.");
-				CONSOLE.info("File moved successfully.");
 			}
+		LOGGER.info("Reports sent successfully.");
+		CONSOLE.info("Reports sent successfully.");	
 		} catch (Exception e) {
 			LOGGER.error("An error occurred while trying to send the daily report email:" + e);
 			CONSOLE.error(
