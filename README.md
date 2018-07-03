@@ -9,6 +9,7 @@ Pasos para instalar:
 5. Convertir a proyecto maven (click derecho en el proyecto -> configure -> convert to maven project)
 6. Deberian descargarse todas las dependencias necesarias. De no ser asi, click derecho en el proyecto -> maven -> update
 7. Correr maven con los goals clean install, para generar las clases utilizadas por MapStruct
+8. Configurar los detalles de e-mail en el archivo application.properties
 
 Para ejecutar: 
 1. Abrir el Boot Dashboard en Eclipse o STS, seleccionar "appservicios", y darle (Re)start para iniciar el servidor.
