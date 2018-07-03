@@ -32,7 +32,7 @@ public class EmailSenderCronJob extends QuartzJobBean {
 	@Value("${dailyreport.path.sent}")
 	String sentReportFolderPath;
 
-	@Value("${dailyreport.destination")
+	@Value("${dailyreport.destination}")
 	String destination;
 
 	@Override
