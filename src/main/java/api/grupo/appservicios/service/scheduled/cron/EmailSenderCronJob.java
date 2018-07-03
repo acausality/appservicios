@@ -39,7 +39,6 @@ public class EmailSenderCronJob extends QuartzJobBean {
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		LOGGER.info("Executing task: e-mail pending reports.");
-		CONSOLE.info("Executing task: e-mail pending reports.");
 		sendPendingReports();
 	}
 
@@ -52,11 +51,9 @@ public class EmailSenderCronJob extends QuartzJobBean {
 			List<File> files = Arrays.asList(pendingFolder.listFiles());
 			if (files.size() == 0) {
 				LOGGER.info("0 pending reports found.");
-				CONSOLE.info("0 pending reports found.");
 				return;
 			}
 			LOGGER.info(files.size() + " pending reports found. Attempting to send e-mail...");
-			CONSOLE.info(files.size() + " pending reports found. Attempting to send e-mail...");
 			for (File file : files) {
 				emailSenderService.sendEmail("Report: " + file.getName(), "Report attached", Arrays.asList(file),
 						destination);
@@ -71,7 +68,6 @@ public class EmailSenderCronJob extends QuartzJobBean {
 				LOGGER.info("File moved successfully.");
 			}
 			LOGGER.info("Finished sending reports.");
-			CONSOLE.info("Finished sending reports.");
 		} catch (EmailException ee) {
 			LOGGER.error("An error occurred while trying to send the daily report email:" + ee);
 			CONSOLE.error(
