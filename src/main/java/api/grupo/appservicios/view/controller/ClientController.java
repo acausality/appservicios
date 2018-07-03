@@ -68,10 +68,17 @@ public class ClientController {
 	@GetMapping("/listToday")
 	public String listClientsSignedUpToday(Model model) {
 		model.addAttribute("clients", clientService.listClientsSignedUpToday());
-
 		return LIST_CLIENTS;
 	}
 
+	// Para causar un log de nivel fatal
+	@GetMapping("/fatal")
+	public String fatal(Model model) {
+		LOGGER.fatal("Inside fatal mapping.");
+		model.addAttribute("errorMessage", "Error fatal de sistema. Contacte a un administrador inmediatamente.");
+		return LIST_CLIENTS;
+	}
+	
 	// Crear cliente nuevo o modificar existente
 	@PostMapping("/save")
 	public String saveClient(@Valid @ModelAttribute("client") ClientDTO client, BindingResult bindingResult,

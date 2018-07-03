@@ -48,7 +48,7 @@ public class ProfessionalController {
 		model.addAttribute("professionals", professionalService.listAllProfessionals());
 		return PROFESSIONALS_LIST;
 	}
-
+	
 	@GetMapping("/form")
 	public String showProfessionalForm(@RequestParam(value = "id", defaultValue = "0", required = false) long id,
 			Model model) {

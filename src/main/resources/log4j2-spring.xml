@@ -5,6 +5,13 @@
 		<Property name="PATH">./logs</Property>
 		<Property name="clientController">ClientController</Property>
 		<Property name="professionalController">ProfessionalController</Property>
+		<!-- Configuracion de email extraida de application.properties. Aca application es el nombre del archivo -->
+		<Property name="mail.account.username">${bundle:application:emailsender.account.username}</Property>
+		<Property name="mail.account.password">${bundle:application:emailsender.account.password}</Property>
+		<Property name="mail.hostname">${bundle:application:emailsender.hostname}</Property>
+		<Property name="mail.smtpport">${bundle:application:emailsender.smtpport}</Property>
+		<Property name="mail.protocol">${bundle:application:log.email.protocol}</Property>
+		<Property name="mail.destination">${bundle:application:log.email.destination}</Property>
 	</Properties>
 	<Appenders>
 		<Console name="console" target="SYSTEM_OUT">
@@ -21,11 +28,17 @@
 			</Policies>
 			<DefaultRolloverStrategy max="20"/>
 		</RollingFile>
+		<SMTP name="mail" subject="Fatal error log" to="${mail.destination}" 
+			smtpUsername="${mail.account.username}"	smtpPassword="${mail.account.password}"
+			smtpHost="${mail.hostname}" smtpPort="${mail.smtpport}" smtpProtocol="${mail.protocol}" from="${mail.account.username}">	
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+		</SMTP> 
 	</Appenders>
 	<Loggers>
 		<Logger name="api.grupo.appservicios" level="trace" additivity="false">
 			<AppenderRef ref="file"/>
 			<AppenderRef ref="console" level="info"/>
+			<AppenderRef ref="mail" level="fatal"/>
 		</Logger>
 		<Logger name="api.grupo.appservicios.${clientController}" level="info" additivity="false">
 			<AppenderRef ref="onlyConsole"/>
