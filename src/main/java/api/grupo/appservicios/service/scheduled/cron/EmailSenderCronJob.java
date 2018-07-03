@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quartz.JobExecutionContext;
@@ -69,12 +70,16 @@ public class EmailSenderCronJob extends QuartzJobBean {
 				Files.move(file.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 				LOGGER.info("File moved successfully.");
 			}
-		LOGGER.info("Reports sent successfully.");
-		CONSOLE.info("Reports sent successfully.");	
-		} catch (Exception e) {
-			LOGGER.error("An error occurred while trying to send the daily report email:" + e);
+		LOGGER.info("Finished sending reports.");
+		CONSOLE.info("Finished sending reports.");	
+		} catch (EmailException ee) {
+			LOGGER.error("An error occurred while trying to send the daily report email:" + ee);
 			CONSOLE.error(
 					"An error occurred while trying to send the daily report email. Please check the log file for detailed information.");
+		} catch (Exception e) {
+			LOGGER.error("A general error occurred while trying to send the daily report email:" + e);
+			CONSOLE.error(
+					"A general error occurred while trying to send the daily report email. Please check the log file for detailed information.");
 		}
 	}
 
